@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        tools:ignore="MissingConstraints">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="906dp"
-            android:layout_height="215dp"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
@@ -25,108 +28,66 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="874dp"
-                android:layout_height="200dp">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
 
                 <TextView
-                    android:id="@+id/_tconductor"
-                    android:layout_width="260dp"
-                    android:layout_height="21dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="60dp"
-                    android:text="Medalith del Pilar Oruna Quiñoes "
-                    android:textColor="#03215F"
+                    android:id="@+id/_tproduct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Papel Higienico "
+                    android:textColor="#727375"
                     android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.028" />
+                    tools:ignore="MissingConstraints" />
 
                 <TextView
                     android:id="@+id/tingreso"
-                    android:layout_width="60dp"
-                    android:layout_height="17dp"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginEnd="260dp"
-                    android:text="Ingreso:"
-                    android:textColor="@color/greenbyron"
-                    android:textSize="12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="stock:"
+                    android:textColor="#8BC34A"
+                    android:textSize="14sp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-
-                    app:layout_constraintTop_toBottomOf="@+id/_tconductor" />
-
-                <TextView
-                    android:id="@+id/_tvobservation"
-                    android:layout_width="220dp"
-                    android:layout_height="15dp"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginEnd="100dp"
-                    android:text="Ingreso correctamente"
-                    android:textColor="#03215F"
-                    android:textSize="10sp"
-
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/_tvingreso" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/_tproduct"
+                    app:layout_constraintVertical_bias="0.04" />
 
                 <TextView
-                    android:id="@+id/tsalida"
-                    android:layout_width="60dp"
-                    android:layout_height="15dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="260dp"
-                    android:text="Salida:"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:id="@+id/_tstock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="64dp"
+                    android:text="11 unidades"
+                    android:textColor="@color/blueapp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-
-                    app:layout_constraintTop_toBottomOf="@+id/_tvobservation" />
+                    app:layout_constraintHorizontal_bias="0.046"
+                    app:layout_constraintStart_toEndOf="@+id/tingreso"
+                    app:layout_constraintTop_toBottomOf="@+id/_tproduct"
+                    app:layout_constraintVertical_bias="0.046" />
 
                 <TextView
-                    android:id="@+id/_tvingreso"
-                    android:layout_width="55dp"
-                    android:layout_height="15dp"
-                    android:layout_marginTop="1dp"
+                    android:id="@+id/_tbrand"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
                     android:layout_marginEnd="100dp"
-                    android:text="12:23:44"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-
+                    android:text="Elite profesional"
+                    android:textColor="#FF9800"
+                    android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/_tconductor" />
-
-                <TextView
-                    android:id="@+id/_tvsalida"
-                    android:layout_width="55dp"
-                    android:layout_height="15dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginEnd="100dp"
-                    android:text="12:55:44"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/_tvobservation" />
-
-                <TextView
-                    android:id="@+id/_tvobservation2"
-                    android:layout_width="220dp"
-                    android:layout_height="15dp"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginEnd="100dp"
-                    android:text="Ingreso correctamente"
-                    android:textColor="#03215F"
-                    android:textSize="10sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-
-                    app:layout_constraintTop_toBottomOf="@+id/_tvsalida" />
+                    app:layout_constraintHorizontal_bias="0.233"
+                    app:layout_constraintStart_toEndOf="@+id/_tproduct"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
