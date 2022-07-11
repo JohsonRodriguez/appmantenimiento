@@ -6,7 +6,7 @@ public class ProductResponse implements Serializable {
     private Long id;
     private  String name ;
     private String brand;
-    private float stock;
+    private String stock;
     private String unit;
 
     public Long getId() {
@@ -33,11 +33,11 @@ public class ProductResponse implements Serializable {
         this.brand = brand;
     }
 
-    public float getStock() {
+    public String getStock() {
         return stock;
     }
 
-    public void setStock(float stock) {
+    public void setStock(String stock) {
         this.stock = stock;
     }
 
@@ -48,10 +48,11 @@ public class ProductResponse implements Serializable {
     public void setUnit(String unit) {
         this.unit = unit;
     }
+
     @Override
     public String toString() {
-        return "RegisterResponse{" +
-                "id='" + id + '\'' +
+        return "ProductResponse{" +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", brand='" + brand + '\'' +
                 ", stock='" + stock + '\'' +

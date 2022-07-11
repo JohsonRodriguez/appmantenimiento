@@ -23,7 +23,7 @@ public class ApiClient {
         return retrofit;
     }
 
-    public static ProductService getProducts(){
+    public static ProductService getProductsService(){
         ProductService productService = getRetrofit().create(ProductService.class);
         return productService;
     }

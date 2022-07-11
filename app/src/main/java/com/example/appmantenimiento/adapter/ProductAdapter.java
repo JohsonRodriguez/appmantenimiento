@@ -17,20 +17,18 @@ import com.example.appmantenimiento.services.ProductResponse;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
-    private List<ProductResponse> productResponseList;
+     private List<ProductResponse> productResponseList;
     private Context context;
     private ProductAdapter.ClickedItem clickedItem;
-
     public ProductAdapter(ProductAdapter.ClickedItem clickedItem) {
         this.clickedItem=clickedItem;
     }
 
 
-    public void setData(  List<ProductResponse> productResponseList){
-       this.productResponseList=productResponseList;
-       notifyDataSetChanged();
-
-   }
+    public void setData(List<ProductResponse> productResponseList){
+        this.productResponseList=productResponseList;
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
@@ -40,8 +38,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     }
 
-    @SuppressLint("SetTextI18n")
-    @Override
+     @Override
     public void onBindViewHolder(@NonNull ProductAdapter.ViewHolder holder, int position) {
         ProductResponse productResponse = productResponseList.get(position);
         String name = productResponse.getName();
@@ -54,7 +51,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder._stock.setText(stock + " " + unit);
 
     }
-
     public interface ClickedItem{
         public void ClickedProduct(ProductResponse productResponse);
     }
@@ -63,10 +59,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     public int getItemCount() {
         return productResponseList.size();
     }
-
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView _product, _brand, _stock, _unit;
-        public ViewHolder(View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             _product=itemView.findViewById(R.id._tproduct);
             _brand=itemView.findViewById(R.id._tbrand);
