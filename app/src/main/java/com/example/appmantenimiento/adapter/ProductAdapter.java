@@ -1,6 +1,5 @@
 package com.example.appmantenimiento.adapter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,12 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appmantenimiento.R;
-import com.example.appmantenimiento.services.ProductResponse;
+import com.example.appmantenimiento.Entity.Product;
 
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
-     private List<ProductResponse> productResponseList;
+     private List<Product> productList;
     private Context context;
     private ProductAdapter.ClickedItem clickedItem;
     public ProductAdapter(ProductAdapter.ClickedItem clickedItem) {
@@ -25,8 +24,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     }
 
 
-    public void setData(List<ProductResponse> productResponseList){
-        this.productResponseList=productResponseList;
+    public void setData(List<Product> productList){
+        this.productList = productList;
         notifyDataSetChanged();
     }
 
@@ -40,24 +39,24 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
      @Override
     public void onBindViewHolder(@NonNull ProductAdapter.ViewHolder holder, int position) {
-        ProductResponse productResponse = productResponseList.get(position);
-        String name = productResponse.getName();
-        String brand = productResponse.getBrand();
-        String stock = String.valueOf(productResponse.getStock());
-        String unit = productResponse.getUnit();
-        Log.e("lista",productResponseList.toString());
+        Product product = productList.get(position);
+        String name = product.getName();
+        String brand = product.getBrand();
+        String stock = String.valueOf(product.getStock());
+        String unit = product.getUnit();
+        Log.e("lista", productList.toString());
         holder._product.setText(name);
         holder._brand.setText(brand);
         holder._stock.setText(stock + " " + unit);
 
     }
     public interface ClickedItem{
-        public void ClickedProduct(ProductResponse productResponse);
+        public void ClickedProduct(Product product);
     }
 
     @Override
     public int getItemCount() {
-        return productResponseList.size();
+        return productList.size();
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView _product, _brand, _stock, _unit;

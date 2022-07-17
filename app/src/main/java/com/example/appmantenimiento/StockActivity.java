@@ -9,11 +9,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
 import com.example.appmantenimiento.adapter.ProductAdapter;
 import com.example.appmantenimiento.api.ApiClient;
-import com.example.appmantenimiento.services.ProductResponse;
+import com.example.appmantenimiento.Entity.Product;
 
 import java.util.List;
 
@@ -42,24 +41,24 @@ public class StockActivity extends AppCompatActivity {
         });
     }
 
-    private void ClickedProduct(ProductResponse productResponse) {
+    private void ClickedProduct(Product product) {
     }
 
     public void getAllProducts(){
-        Call<List<ProductResponse>> productlist = ApiClient.getProductsService().getProducts();
-        productlist.enqueue(new Callback<List<ProductResponse>>() {
+        Call<List<Product>> productlist = ApiClient.getProductsService().getProducts();
+        productlist.enqueue(new Callback<List<Product>>() {
             @Override
-            public void onResponse(Call<List<ProductResponse>> call, Response<List<ProductResponse>> response) {
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 if(response.isSuccessful()){
-                    List<ProductResponse> productResponses = response.body();
-                    Log.e("ok",productResponses.toString());
-                    productAdapter.setData(productResponses);
+                    List<Product> productRespons = response.body();
+                    Log.e("ok", productRespons.toString());
+                    productAdapter.setData(productRespons);
                     recyclerView.setAdapter(productAdapter);
                 }
             }
 
             @Override
-            public void onFailure(Call<List<ProductResponse>> call, Throwable t) {
+            public void onFailure(Call<List<Product>> call, Throwable t) {
                 Log.e("failure",t.getLocalizedMessage());
             }
         });

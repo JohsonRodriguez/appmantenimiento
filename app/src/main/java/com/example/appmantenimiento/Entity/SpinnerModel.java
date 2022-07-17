@@ -1,8 +1,6 @@
-package com.example.appmantenimiento.services;
+package com.example.appmantenimiento.Entity;
 
-import java.io.Serializable;
-
-public class ProductResponse implements Serializable {
+public class SpinnerModel {
     private Long id;
     private  String name ;
     private String brand;
@@ -60,3 +58,4 @@ public class ProductResponse implements Serializable {
                 '}';
     }
 }
+
