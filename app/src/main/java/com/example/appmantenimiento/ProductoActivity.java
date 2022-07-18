@@ -82,21 +82,20 @@ public class ProductoActivity extends AppCompatActivity {
                 iproduct.setProduct(idproduct);
                 iproduct.setAmount(amount);
                 iproduct.setUsers(users);
-                Call<Input> inputProduct= ApiClient.getProductsService().createInput(iproduct);
+                Call<Void> inputProduct= ApiClient.getProductsService().createInput(iproduct);
                 Log.i("output",inputProduct.toString());
-                inputProduct.enqueue(new Callback<Input>(){
+                inputProduct.enqueue(new Callback<Void>(){
                     @Override
-                    public void onResponse(Call<Input> call, Response<Input> response) {
+                    public void onResponse(Call<Void> call, Response<Void> response) {
                         Toast.makeText(getApplicationContext(), "Producto guardado", Toast.LENGTH_SHORT).show();
+                       startActivity(new Intent(getApplicationContext(), ProductoActivity.class));
                     }
 
                     @Override
-                    public void onFailure(Call<Input> call, Throwable t) {
+                    public void onFailure(Call<Void> call, Throwable t) {
                         t.printStackTrace();
                         Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-
                     }
-
             });
         }
     });}
@@ -115,6 +114,7 @@ public class ProductoActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Product> call, Throwable t) {
                 t.printStackTrace();
+                Log.i("output error",t.getMessage());
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
 
             }

@@ -19,7 +19,7 @@ public interface ProductService {
     Call<Product> getOneProduct(@Path("name") String name);
 
     @POST("input/add")
-    Call<Input> createInput(@Body Input input);
+    Call<Void> createInput(@Body Input input);
 
 
 
