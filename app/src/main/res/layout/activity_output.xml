@@ -128,7 +128,7 @@
         app:layout_constraintTop_toBottomOf="@+id/spinerProduct" />
 
     <EditText
-        android:id="@+id/edtAmount"
+        android:id="@+id/edtAmountOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -163,7 +163,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.066"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtAmount" />
+        app:layout_constraintTop_toBottomOf="@+id/edtAmountOut" />
 
     <Spinner
         android:id="@+id/spinerUbicacion"
@@ -179,7 +179,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <Button
-        android:id="@+id/btn_Add"
+        android:id="@+id/btn_Save"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="84dp"
