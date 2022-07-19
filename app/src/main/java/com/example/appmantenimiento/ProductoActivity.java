@@ -29,12 +29,13 @@ import com.example.appmantenimiento.Entity.Product;
 import com.example.appmantenimiento.api.ApiClient;
 
 public class ProductoActivity extends AppCompatActivity {
-    ArrayList<String> arrayList,productsName;
+    ArrayList<String> productsName;
     Spinner spinner_Product;
     ImageButton btnMenu;
     Button btnAdd;
     EditText _edtAmount;
-    Long _amount,_idproduct,_users;
+    Long _amount,_users, idProductSelect;
+    List<Long> listIdProduct;
 
 
 
@@ -57,9 +58,11 @@ public class ProductoActivity extends AppCompatActivity {
         spinner_Product.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String productName=(String) spinner_Product.getSelectedItem();
-                searchProduct(productName);
-//                Toast.makeText(getApplicationContext(), productName, Toast.LENGTH_SHORT).show();
+//                String productName=(String) spinner_Product.getSelectedItem();
+                int positionSpinner= spinner_Product.getSelectedItemPosition();
+                 idProductSelect = listIdProduct.get(positionSpinner);
+//                searchProduct(productName);
+//               Toast.makeText(getApplicationContext(), idProductSelect.toString(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -74,7 +77,7 @@ public class ProductoActivity extends AppCompatActivity {
             public void onClick(View view) {
                 _amount= Long.valueOf(_edtAmount.getText().toString());
                 _users= 1L;
-                sendAddProduct(_amount,_idproduct,_users);
+                sendAddProduct(_amount,idProductSelect,_users);
             }
 
             private void sendAddProduct(Long amount, Long idproduct, Long users) {
@@ -100,31 +103,32 @@ public class ProductoActivity extends AppCompatActivity {
         }
     });}
 
-    public void searchProduct(String productName) {
-        Call<Product> productSelected= ApiClient.getProductsService().getOneProduct(productName);
-        Log.i("output",productSelected.toString());
-        productSelected.enqueue(new Callback<Product>(){
-            @Override
-            public void onResponse(Call<Product> call, Response<Product> response) {
-                Product p = (Product) response.body();
-                _idproduct = Long.valueOf(p.getId().toString()) ;
+//    public void searchProduct(String productName) {
+//        Call<Product> productSelected= ApiClient.getProductsService().getOneProduct(productName);
+//        Log.i("output",productSelected.toString());
+//        productSelected.enqueue(new Callback<Product>(){
+//            @Override
+//            public void onResponse(Call<Product> call, Response<Product> response) {
+//                Product p = (Product) response.body();
+//                _idproduct = Long.valueOf(p.getId().toString()) ;
 //                Toast.makeText(getApplicationContext(), id, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<Product> call, Throwable t) {
-                t.printStackTrace();
-                Log.i("output error",t.getMessage());
-                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-
-            }
-
-        });
-
-    }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Product> call, Throwable t) {
+//                t.printStackTrace();
+//                Log.i("output error",t.getMessage());
+//                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+//
+//            }
+//
+//        });
+//
+//    }
 
     public void getAllProducts() {
         productsName = new ArrayList<>();
+        listIdProduct = new ArrayList<>();
         Call<List<Product>> productlist = ApiClient.getProductsService().getProducts();
         final Context context = this;
         productlist.enqueue(new Callback<List<Product>>() {
@@ -132,6 +136,7 @@ public class ProductoActivity extends AppCompatActivity {
             public void onResponse(Call<List<Product>> productlist, Response<List<Product>> response) {
                 for (Product p : response.body()) {
                     productsName.add(p.getName());
+                    listIdProduct.add(p.getId());
 
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<>( context,android.R.layout.simple_spinner_item,productsName);

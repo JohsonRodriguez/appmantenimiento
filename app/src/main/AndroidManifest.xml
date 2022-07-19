@@ -16,6 +16,9 @@
         android:theme="@style/Theme.AppMantenimiento"
         tools:targetApi="31">
         <activity
+            android:name=".OutputActivity"
+            android:exported="false" />
+        <activity
             android:name=".StockActivity"
             android:exported="false" />
         <activity

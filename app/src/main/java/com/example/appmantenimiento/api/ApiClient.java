@@ -1,5 +1,6 @@
 package com.example.appmantenimiento.api;
 
+import com.example.appmantenimiento.services.EmployeeService;
 import com.example.appmantenimiento.services.ProductService;
 
 import okhttp3.OkHttpClient;
@@ -26,6 +27,11 @@ public class ApiClient {
     public static ProductService getProductsService(){
         ProductService productService = getRetrofit().create(ProductService.class);
         return productService;
+    }
+
+    public static EmployeeService getEmployeeService(){
+        EmployeeService employeeService=getRetrofit().create(EmployeeService.class);
+        return employeeService;
     }
 
 }

@@ -15,8 +15,8 @@ public interface ProductService {
     @GET("product/all")
     Call<List<Product>> getProducts();
 
-    @GET("product/findProduct/{name}")
-    Call<Product> getOneProduct(@Path("name") String name);
+//    @GET("product/findProduct/{name}")
+//    Call<Product> getOneProduct(@Path("name") String name);
 
     @POST("input/add")
     Call<Void> createInput(@Body Input input);
