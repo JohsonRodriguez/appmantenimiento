@@ -16,10 +16,16 @@
         android:theme="@style/Theme.AppMantenimiento"
         tools:targetApi="31">
         <activity
+            android:name=".ProductToLocationActivity"
+            android:exported="false" />
+        <activity
             android:name=".OutputActivity"
             android:exported="false" />
         <activity
             android:name=".StockActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ReportLocationActivity"
             android:exported="false" />
         <activity
             android:name=".ProductoActivity"
