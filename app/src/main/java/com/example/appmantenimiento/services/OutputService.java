@@ -3,6 +3,7 @@ package com.example.appmantenimiento.services;
 
 
 
+import com.example.appmantenimiento.Dto.EmployeeTotalDto;
 import com.example.appmantenimiento.Dto.OutputProductDto;
 import com.example.appmantenimiento.Dto.OutputProductTotalDto;
 import com.example.appmantenimiento.Entity.Output;
@@ -20,5 +21,8 @@ public interface OutputService {
 
     @POST("output/sum")
     Call<List<OutputProductTotalDto>> sumOutput(@Body OutputProductDto outputProductDto);
+
+    @POST("output/sumemployee")
+    Call<List<EmployeeTotalDto>> sumOutputEmployee(@Body OutputProductDto outputProductDto);
 
 }

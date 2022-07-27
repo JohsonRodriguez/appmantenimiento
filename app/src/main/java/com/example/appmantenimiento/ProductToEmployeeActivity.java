@@ -17,14 +17,14 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.appmantenimiento.Dto.EmployeeTotalDto;
 import com.example.appmantenimiento.Dto.OutputProductDto;
 import com.example.appmantenimiento.Dto.OutputProductTotalDto;
 import com.example.appmantenimiento.Entity.Product;
+import com.example.appmantenimiento.adapter.OuputEmployeeAdapter;
 import com.example.appmantenimiento.adapter.OutputProductAdapter;
-import com.example.appmantenimiento.adapter.ProductAdapter;
 import com.example.appmantenimiento.api.ApiClient;
 
-import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,7 +34,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProductToLocationActivity extends AppCompatActivity {
+public class ProductToEmployeeActivity extends AppCompatActivity {
     //Initialize variable array
     ArrayList<String> productName, mounthName;
     //Initialize spinner
@@ -45,25 +45,24 @@ public class ProductToLocationActivity extends AppCompatActivity {
     Long idProductSelect;
     String date, year, mounth;
     //Initializa List variable
-    List<Long> listIdMounth, listIdProduct, listIdLocation;
-    RecyclerView recyclerViewLocation;
-    OutputProductAdapter outputProductAdapter;
-
+    List<Long> listIdProduct;
+    RecyclerView recyclerViewEmployee;
+   OuputEmployeeAdapter ouputEmployeeAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_product_to_location);
+        setContentView(R.layout.activity_product_to_employee);
         productName=new ArrayList<>();
-        spinner_product=findViewById(R.id.spinerLocationProduct);
-        spinner_mount=findViewById(R.id.spinerMes);
-        backMenu=findViewById(R.id.btn_backOutProduct);
-        btnProcess=findViewById(R.id._btn_Process);
+        spinner_product=findViewById(R.id.spinerEmployeeProduct);
+        spinner_mount=findViewById(R.id.spinerMesEmployee);
+        backMenu=findViewById(R.id.btn_backOutEmployee);
+        btnProcess=findViewById(R.id._btn_ProcessProEMp);
 
-        recyclerViewLocation=findViewById(R.id.rwProductToLocation);
-        recyclerViewLocation.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewLocation.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
-        outputProductAdapter = new OutputProductAdapter(this::ClickedProductTotal);
+        recyclerViewEmployee=findViewById(R.id.rwProductToEmployee);
+        recyclerViewEmployee.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewEmployee.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+        ouputEmployeeAdapter = new OuputEmployeeAdapter(this::ClickedEmployee);
 
         //Call Method
         getYear();
@@ -104,7 +103,6 @@ public class ProductToLocationActivity extends AppCompatActivity {
                 }else
                     mounth= String.valueOf(realposition);
                 date=year+"-"+mounth;
-
             }
 
             @Override
@@ -117,42 +115,43 @@ public class ProductToLocationActivity extends AppCompatActivity {
         btnProcess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getDataTotalProduct();
+                getDataTotalEmployee();
             }
         });
     }
 
-    private void ClickedProductTotal(OutputProductTotalDto outputProductTotalDto) {
+    private void ClickedEmployee(EmployeeTotalDto employeeTotalDto) {
     }
 
 
 
-    private void getDataTotalProduct() {
-        OutputProductDto outputProductDto = new OutputProductDto();
+    private void getDataTotalEmployee() {
+         OutputProductDto outputProductDto = new OutputProductDto();
         outputProductDto.setProduct(idProductSelect);
         outputProductDto.setDate(date);
-        Call<List<OutputProductTotalDto>>TotalProductService=ApiClient.getOutputService().sumOutput(outputProductDto);
-        TotalProductService.enqueue(new Callback<List<OutputProductTotalDto>>() {
+        Call<List<EmployeeTotalDto>> TotalEmployeeService= ApiClient.getOutputService().sumOutputEmployee(outputProductDto);
+        TotalEmployeeService.enqueue(new Callback<List<EmployeeTotalDto>>() {
             @Override
-            public void onResponse(Call<List<OutputProductTotalDto>> call, Response<List<OutputProductTotalDto>> response) {
+            public void onResponse(Call<List<EmployeeTotalDto>> call, Response<List<EmployeeTotalDto>> response) {
                 if(response.isSuccessful()){
-                    List<OutputProductTotalDto> outputProductTotalResponse = response.body();
-                    if(!outputProductTotalResponse.isEmpty()){
-                        outputProductAdapter.setData(outputProductTotalResponse);
-                        recyclerViewLocation.setAdapter(outputProductAdapter);
+                    List<EmployeeTotalDto> outputEmployeeTotalResponse = response.body();
+                    if(!outputEmployeeTotalResponse.isEmpty() ) {
+                        Log.e("ok", outputEmployeeTotalResponse.toString());
+                        ouputEmployeeAdapter.setData(outputEmployeeTotalResponse);
+                        recyclerViewEmployee.setAdapter(ouputEmployeeAdapter);
                     }else{
-                        Toast.makeText(getApplicationContext(), "Aun no hay registros", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"Aun no hay registros" , Toast.LENGTH_SHORT).show();
                     }
-
                 }
             }
 
             @Override
-            public void onFailure(Call<List<OutputProductTotalDto>> call, Throwable t) {
+            public void onFailure(Call<List<EmployeeTotalDto>> call, Throwable t) {
                 t.printStackTrace();
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+
             }
-        });
+          });
     }
 
     private void getYear() {
