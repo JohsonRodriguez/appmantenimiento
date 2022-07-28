@@ -85,7 +85,7 @@ public class ProductoActivity extends AppCompatActivity {
                 iproduct.setProduct(idproduct);
                 iproduct.setAmount(amount);
                 iproduct.setUsers(users);
-                Call<Void> inputProduct= ApiClient.getProductsService().createInput(iproduct);
+                Call<Void> inputProduct= ApiClient.getInputService().createInput(iproduct);
                 Log.i("output",inputProduct.toString());
                 inputProduct.enqueue(new Callback<Void>(){
                     @Override

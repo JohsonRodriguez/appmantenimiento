@@ -9,7 +9,7 @@ import android.widget.Button;
 
 public class MenuActivity extends AppCompatActivity {
 
-    Button btn_ingProd, btn_stock, btn_SalProduct, btn_Location, btn_Employee;
+    Button btn_ingProd, btn_stock, btn_SalProduct, btn_Location, btn_Employee, btn_AllInput;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +20,14 @@ public class MenuActivity extends AppCompatActivity {
         btn_SalProduct=findViewById(R.id.btn_SalProducto);
         btn_Location=findViewById(R.id.btn_report);
         btn_Employee=findViewById(R.id.btn_reportPersonal);
+        btn_AllInput=findViewById(R.id.btn_Inputs);
+
+        btn_AllInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), InputRegistersActivity.class));
+            }
+        });
 
         btn_Employee.setOnClickListener(new View.OnClickListener() {
             @Override

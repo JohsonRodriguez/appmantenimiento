@@ -6,27 +6,28 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".ProductToEmployeeActivity">
+    tools:context=".InputRegistersActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:orientation="horizontal">
         <ImageButton
-            android:id="@+id/btn_backMenuEmployee"
+            android:id="@+id/btn_backMenu2"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:background="@color/white"
             app:srcCompat="@drawable/flecha"
             android:layout_marginLeft="10dp"
             tools:layout_editor_absoluteX="10dp"
-            tools:layout_editor_absoluteY="36dp" />
+            tools:layout_editor_absoluteY="36dp"
+            android:contentDescription="TODO" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Productos por Personal"
+            android:text="@string/registros_de_ingresos"
             android:textColor="@color/blueapp"
             android:textSize="20dp"
             android:textStyle="bold"
@@ -39,58 +40,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Seleccione Producto"
-            android:textColor="@color/blueapp"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.056"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-        <Spinner
-            android:id="@+id/spinerEmployeeProduct"
-            android:layout_width="380dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="12dp"
-            android:text="Seleccion Producto"
-            android:background="@drawable/spinner"
-            android:spinnerMode="dropdown"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.483"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
         <TextView
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Seleccione Mes"
+            android:text="Seleccione Día"
             android:textColor="@color/blueapp"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.066"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinerProduct" />
 
-        <Spinner
-            android:id="@+id/spinerMesEmployee"
-            android:layout_width="380dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/spinner"
-            android:spinnerMode="dropdown"
-            android:text="Seleccion Mes"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.483"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        <Button
+            android:id="@+id/datePickerButtonInput"
+            style="?android:spinnerStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:onClick="openDatePicker"
+            android:text="JAN 01 2020"
+            android:textColor="@color/greenbyron"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <TextView
             android:id="@+id/textView4"
@@ -98,7 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
             android:layout_marginTop="12dp"
-            android:text="Lista de Empleados"
+            android:text="Lista de Registro de Ingresos"
             android:textColor="@color/blueapp"
             android:textSize="20dp"
             android:textStyle="bold"
@@ -115,21 +94,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4"
-            app:srcCompat="@drawable/linea" />
-        <Button
-            android:id="@+id/_btn_ProcessProEMp"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/shape_button"
-            android:text="Procesar"
-            android:layout_gravity="center"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            android:textStyle="bold"/>
+            app:srcCompat="@drawable/linea"
+            tools:ignore="ImageContrastCheck" />
+
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/_rwProductToEmployee"
+            android:id="@+id/rwInputs"
             android:layout_width="391dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"

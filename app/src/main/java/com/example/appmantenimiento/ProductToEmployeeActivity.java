@@ -56,10 +56,10 @@ public class ProductToEmployeeActivity extends AppCompatActivity {
         productName=new ArrayList<>();
         spinner_product=findViewById(R.id.spinerEmployeeProduct);
         spinner_mount=findViewById(R.id.spinerMesEmployee);
-        backMenu=findViewById(R.id.btn_backOutEmployee);
+        backMenu=findViewById(R.id.btn_backMenuEmployee);
         btnProcess=findViewById(R.id._btn_ProcessProEMp);
 
-        recyclerViewEmployee=findViewById(R.id.rwProductToEmployee);
+        recyclerViewEmployee=findViewById(R.id._rwProductToEmployee);
         recyclerViewEmployee.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewEmployee.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
         ouputEmployeeAdapter = new OuputEmployeeAdapter(this::ClickedEmployee);

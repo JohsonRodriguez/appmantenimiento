@@ -1,6 +1,7 @@
 package com.example.appmantenimiento.api;
 
 import com.example.appmantenimiento.services.EmployeeService;
+import com.example.appmantenimiento.services.InputService;
 import com.example.appmantenimiento.services.LocationService;
 import com.example.appmantenimiento.services.OutputService;
 import com.example.appmantenimiento.services.ProductService;
@@ -44,6 +45,11 @@ public class ApiClient {
     public static OutputService getOutputService(){
         OutputService outputService=getRetrofit().create(OutputService.class);
         return outputService;
+    }
+
+    public static InputService getInputService(){
+        InputService inputService=getRetrofit().create(InputService.class);
+        return inputService;
     }
 
 }

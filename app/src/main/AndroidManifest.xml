@@ -16,6 +16,9 @@
         android:theme="@style/Theme.AppMantenimiento"
         tools:targetApi="31">
         <activity
+            android:name=".InputRegistersActivity"
+            android:exported="false" />
+        <activity
             android:name=".ProductToEmployeeActivity"
             android:exported="false" />
         <activity

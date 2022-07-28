@@ -9,6 +9,7 @@
         <entry key="..\:/Users/HP/Desktop/appmantenimiento/app/src/main/res/drawable/ic_arrow_down.xml" value="0.2105" />
         <entry key="..\:/Users/HP/Desktop/appmantenimiento/app/src/main/res/drawable/spinner.xml" value="0.19" />
         <entry key="..\:/Users/HP/Desktop/appmantenimiento/app/src/main/res/font/font.xml" value="0.23333333333333334" />
+        <entry key="..\:/Users/HP/Desktop/appmantenimiento/app/src/main/res/layout/activity_input_registers.xml" value="0.1" />
         <entry key="..\:/Users/HP/Desktop/appmantenimiento/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/HP/Desktop/appmantenimiento/app/src/main/res/layout/activity_output.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/HP/Desktop/appmantenimiento/app/src/main/res/layout/activity_product_to_employee.xml" value="0.19583333333333333" />
@@ -17,6 +18,7 @@
         <entry key="..\:/Users/HP/Desktop/appmantenimiento/app/src/main/res/layout/activity_report_location.xml" value="0.15572916666666667" />
         <entry key="..\:/Users/HP/Desktop/appmantenimiento/app/src/main/res/layout/activity_stock.xml" value="0.16" />
         <entry key="..\:/Users/HP/Desktop/appmantenimiento/app/src/main/res/layout/dialog_searchable_spinner.xml" value="0.18020833333333333" />
+        <entry key="..\:/Users/HP/Desktop/appmantenimiento/app/src/main/res/layout/row_all_inputs.xml" value="0.33" />
         <entry key="..\:/Users/HP/Desktop/appmantenimiento/app/src/main/res/layout/row_product_employee.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/HP/Desktop/appmantenimiento/app/src/main/res/layout/row_product_location.xml" value="0.33" />
         <entry key="..\:/Users/HP/Desktop/appmantenimiento/app/src/main/res/layout/row_stock.xml" value="0.33" />
