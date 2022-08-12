@@ -16,6 +16,12 @@
         android:theme="@style/Theme.AppMantenimiento"
         tools:targetApi="31">
         <activity
+            android:name=".NewProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AllOutputsActivity"
+            android:exported="false" />
+        <activity
             android:name=".InputRegistersActivity"
             android:exported="false" />
         <activity
@@ -34,7 +40,7 @@
             android:name=".ReportLocationActivity"
             android:exported="false" />
         <activity
-            android:name=".ProductoActivity"
+            android:name=".InputActivity"
             android:exported="false" />
         <activity
             android:name=".MenuActivity"

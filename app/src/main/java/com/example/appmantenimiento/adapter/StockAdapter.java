@@ -10,44 +10,45 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.appmantenimiento.Entity.Stock;
 import com.example.appmantenimiento.R;
 import com.example.appmantenimiento.Entity.Product;
 
 import java.util.List;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
-     private List<Product> productList;
+public class StockAdapter extends RecyclerView.Adapter<StockAdapter.ViewHolder> {
+     private List<Stock> stockList;
     private Context context;
-    private ProductAdapter.ClickedItem clickedItem;
-    public ProductAdapter(ProductAdapter.ClickedItem clickedItem) {
+    private StockAdapter.ClickedItem clickedItem;
+    public StockAdapter(StockAdapter.ClickedItem clickedItem) {
         this.clickedItem=clickedItem;
     }
 
 
-    public void setData(List<Product> productList){
-        this.productList = productList;
+    public void setData(List<Stock> stockList){
+        this.stockList = stockList;
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public ProductAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public StockAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context=parent.getContext();
-        return new ProductAdapter.ViewHolder(LayoutInflater.from(context).inflate(R.layout.row_stock,parent,false));
+        return new StockAdapter.ViewHolder(LayoutInflater.from(context).inflate(R.layout.row_stock,parent,false));
 
     }
 
      @Override
-    public void onBindViewHolder(@NonNull ProductAdapter.ViewHolder holder, int position) {
-        Product product = productList.get(position);
-        String name = product.getName();
-        String brand = product.getBrand();
-        String stock = String.valueOf(product.getStock());
-        String unit = product.getUnit();
-        Log.e("lista", productList.toString());
+    public void onBindViewHolder(@NonNull StockAdapter.ViewHolder holder, int position) {
+         Stock stock = stockList.get(position);
+        String name = stock.getProduct();
+        String brand = stock.getBrand();
+        String amounth = String.valueOf(stock.getStock());
+        String unit = stock.getUnit();
+        Log.e("lista", stockList.toString());
         holder._product.setText(name);
         holder._brand.setText(brand);
-        holder._stock.setText(stock + " " + unit);
+        holder._stock.setText(amounth + " " + unit);
 
     }
     public interface ClickedItem{
@@ -56,10 +57,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return productList.size();
+        return stockList.size();
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView _product, _brand, _stock, _unit;
+        TextView _product, _brand, _stock;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             _product=itemView.findViewById(R.id._tproduct);

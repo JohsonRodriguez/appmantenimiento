@@ -1,13 +1,18 @@
 package com.example.appmantenimiento.Entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class Product implements Serializable {
     private Long id;
     private  String name ;
-    private String brand;
-    private String stock;
     private String unit;
+    private ArrayList<Brand> brands = new ArrayList<>();
+
+    public Product() {
+
+    }
 
     public Long getId() {
         return id;
@@ -25,22 +30,6 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public String getStock() {
-        return stock;
-    }
-
-    public void setStock(String stock) {
-        this.stock = stock;
-    }
-
     public String getUnit() {
         return unit;
     }
@@ -49,14 +38,28 @@ public class Product implements Serializable {
         this.unit = unit;
     }
 
+    public ArrayList<Brand> getBrands() {
+        return brands;
+    }
+
+    public void setBrands(ArrayList<Brand> brands) {
+        this.brands = brands;
+    }
+
+    public Product(Long id, String name, String unit, ArrayList<Brand> brands) {
+        this.id = id;
+        this.name = name;
+        this.unit = unit;
+        this.brands = brands;
+    }
+
     @Override
     public String toString() {
-        return "ProductResponse{" +
+        return "Product{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", brand='" + brand + '\'' +
-                ", stock='" + stock + '\'' +
                 ", unit='" + unit + '\'' +
+                ", brands=" + brands +
                 '}';
     }
 }

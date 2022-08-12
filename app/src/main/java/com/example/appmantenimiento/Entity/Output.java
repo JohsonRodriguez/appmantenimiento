@@ -4,10 +4,15 @@ import java.io.Serializable;
 
 public class Output implements Serializable {
     private float amount;
-    private Long product;
+    private String productName;
+    private String productBrand;
     private Long users;
     private Long employee;
     private Long location;
+
+    public Output() {
+
+    }
 
     public float getAmount() {
         return amount;
@@ -17,12 +22,20 @@ public class Output implements Serializable {
         this.amount = amount;
     }
 
-    public Long getProduct() {
-        return product;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setProduct(Long product) {
-        this.product = product;
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public String getProductBrand() {
+        return productBrand;
+    }
+
+    public void setProductBrand(String productBrand) {
+        this.productBrand = productBrand;
     }
 
     public Long getUsers() {
@@ -49,11 +62,21 @@ public class Output implements Serializable {
         this.location = location;
     }
 
+    public Output(float amount, String productName, String productBrand, Long users, Long employee, Long location) {
+        this.amount = amount;
+        this.productName = productName;
+        this.productBrand = productBrand;
+        this.users = users;
+        this.employee = employee;
+        this.location = location;
+    }
+
     @Override
     public String toString() {
         return "Output{" +
                 "amount=" + amount +
-                ", product=" + product +
+                ", productName='" + productName + '\'' +
+                ", productBrand='" + productBrand + '\'' +
                 ", users=" + users +
                 ", employee=" + employee +
                 ", location=" + location +

@@ -184,7 +184,7 @@ public class ProductToEmployeeActivity extends AppCompatActivity {
     }
 
     private void getAllProducts() {
-        productName = new ArrayList<>();
+      /*  productName = new ArrayList<>();
         listIdProduct = new ArrayList<>();
         Call<List<Product>> productlist = ApiClient.getProductsService().getProducts();
         final Context context = this;
@@ -207,6 +207,6 @@ public class ProductToEmployeeActivity extends AppCompatActivity {
                 t.printStackTrace();
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
     }
 }

@@ -5,6 +5,7 @@ import com.example.appmantenimiento.services.InputService;
 import com.example.appmantenimiento.services.LocationService;
 import com.example.appmantenimiento.services.OutputService;
 import com.example.appmantenimiento.services.ProductService;
+import com.example.appmantenimiento.services.StockService;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -27,9 +28,9 @@ public class ApiClient {
         return retrofit;
     }
 
-    public static ProductService getProductsService(){
-        ProductService productService = getRetrofit().create(ProductService.class);
-        return productService;
+    public static StockService getStocksService(){
+        StockService stockService = getRetrofit().create(StockService.class);
+        return stockService;
     }
 
     public static EmployeeService getEmployeeService(){
@@ -50,6 +51,10 @@ public class ApiClient {
     public static InputService getInputService(){
         InputService inputService=getRetrofit().create(InputService.class);
         return inputService;
+    }
+    public static ProductService getProductService(){
+        ProductService productService=getRetrofit().create(ProductService.class);
+        return productService;
     }
 
 }

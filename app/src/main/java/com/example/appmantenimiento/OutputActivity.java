@@ -15,6 +15,8 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.appmantenimiento.Dto.ProductBrandDto;
+import com.example.appmantenimiento.Dto.ProductNameDto;
 import com.example.appmantenimiento.Entity.Employee;
 import com.example.appmantenimiento.Entity.Location;
 import com.example.appmantenimiento.Entity.Output;
@@ -29,21 +31,23 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class OutputActivity extends AppCompatActivity {
-    ArrayList<String> employeeName, productName, locationName;
-    Spinner spinner_Employee,spinner_Product, spinner_location;
+    ArrayList<String> employeeName, productsName, locationName,productsBrand;
+    Spinner spinner_Employee,spinner_Product, spinner_location,spinner_brand;
     Long idEmployeeSelect, idProductSelect, idLocationSelect, amount,_users;
     List<Long> listIdEmployee, listIdProduct, listIdLocation;
     ImageButton backMenu;
     EditText _amount;
     Button btnSend;
+    String productName, productBrand;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_output);
 
         employeeName=new ArrayList<>();
-        productName=new ArrayList<>();
+        productsName=new ArrayList<>();
         locationName=new ArrayList<>();
+        productsBrand=new ArrayList<>();
 
         backMenu=findViewById(R.id.btn_atras);
         _amount=findViewById(R.id.edtAmountOut);
@@ -52,6 +56,7 @@ public class OutputActivity extends AppCompatActivity {
         spinner_Employee=findViewById(R.id.spinerPersonal);
         spinner_Product=findViewById(R.id.spinerProduct);
         spinner_location=findViewById(R.id.spinerUbicacion);
+        spinner_brand=findViewById(R.id.spinerBrandOut);
 
         getAllEmployees();
         getAllProducts();
@@ -85,10 +90,25 @@ public class OutputActivity extends AppCompatActivity {
         spinner_Product.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                int positionSpinner= spinner_Product.getSelectedItemPosition();
+                /*int positionSpinner= spinner_Product.getSelectedItemPosition();
                 idProductSelect = listIdProduct.get(positionSpinner);
-                Toast.makeText(getApplicationContext(), idProductSelect.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), idProductSelect.toString(), Toast.LENGTH_SHORT).show();*/
+                productName=(String) spinner_Product.getSelectedItem();
+                searchBrand(productName);
 
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        //Select Brand
+        spinner_brand.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                productBrand=(String) spinner_brand.getSelectedItem();
             }
 
             @Override
@@ -119,13 +139,38 @@ public class OutputActivity extends AppCompatActivity {
             public void onClick(View view) {
                 amount= Long.valueOf(_amount.getText().toString());
                 _users= 1L;
-                sendAddOutput(amount,idProductSelect,_users,idEmployeeSelect,idLocationSelect);
+                sendAddOutput(amount,productName,productBrand,_users,idEmployeeSelect,idLocationSelect);
             }
         });
 
     }
 
 
+    private void searchBrand(String productName) {
+        /*final Context context = this;
+        productsBrand=new ArrayList<>();
+        Call<List<ProductBrandDto>> brandList = ApiClient.getProductService().getBrands(productName);
+        brandList.enqueue(new Callback<List<ProductBrandDto>>() {
+            @Override
+            public void onResponse(Call<List<ProductBrandDto>> call, Response<List<ProductBrandDto>> response) {
+                for (ProductBrandDto pb : response.body()) {
+                    productsBrand.add(pb.getProductBrand());
+                    *//*listIdProduct.add(p.getId());*//*
+
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<>( context,android.R.layout.simple_spinner_item,productsBrand);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner_brand.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onFailure(Call<List<ProductBrandDto>> call, Throwable t) {
+                t.printStackTrace();
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });*/
+    }
 
 
     private void getAllEmployees() {
@@ -157,26 +202,26 @@ public class OutputActivity extends AppCompatActivity {
     }
 
     private void getAllProducts() {
-        productName = new ArrayList<>();
-        listIdProduct = new ArrayList<>();
-        Call<List<Product>> productlist = ApiClient.getProductsService().getProducts();
+        productsName = new ArrayList<>();
+
+        Call<List<ProductNameDto>> productlist = ApiClient.getProductService().getProducts();
         final Context context = this;
-        productlist.enqueue(new Callback<List<Product>>() {
+        productlist.enqueue(new Callback<List<ProductNameDto>>() {
             @Override
-            public void onResponse(Call<List<Product>> productlist, Response<List<Product>> response) {
-                for (Product p : response.body()) {
-                    productName.add(p.getName());
-                    listIdProduct.add(p.getId());
+            public void onResponse(Call<List<ProductNameDto>> productlist, Response<List<ProductNameDto>> response) {
+                for (ProductNameDto p : response.body()) {
+                    productsName.add(p.getProductName());
+
 
                 }
-                ArrayAdapter<String> adapterProduct = new ArrayAdapter<>( context,android.R.layout.simple_spinner_item,productName);
-                adapterProduct.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner_Product.setAdapter(adapterProduct);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>( context,android.R.layout.simple_spinner_item,productsName);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner_Product.setAdapter(adapter);
 
             }
 
             @Override
-            public void onFailure(Call<List<Product>> call, Throwable t) {
+            public void onFailure(Call<List<ProductNameDto>> call, Throwable t) {
                 t.printStackTrace();
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -212,10 +257,11 @@ public class OutputActivity extends AppCompatActivity {
     }
 
     //Send Data Output
-    private void sendAddOutput(Long amount, Long idProductSelect, Long users, Long idEmployeeSelect, Long idLocationSelect) {
+    private void sendAddOutput(Long amount, String productName, String productBrand, Long users, Long idEmployeeSelect, Long idLocationSelect) {
         Output output=new Output();
         output.setAmount(amount);
-        output.setProduct(idProductSelect);
+        output.setProductName(productName);
+        output.setProductBrand(productBrand);
         output.setUsers(users);
         output.setEmployee(idEmployeeSelect);
         output.setLocation(idLocationSelect);

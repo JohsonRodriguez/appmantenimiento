@@ -10,7 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageButton;
 
-import com.example.appmantenimiento.adapter.ProductAdapter;
+import com.example.appmantenimiento.Entity.Stock;
+import com.example.appmantenimiento.adapter.StockAdapter;
 import com.example.appmantenimiento.api.ApiClient;
 import com.example.appmantenimiento.Entity.Product;
 
@@ -24,7 +25,7 @@ public class StockActivity extends AppCompatActivity {
 
     ImageButton btnMenu;
     RecyclerView recyclerView;
-    ProductAdapter productAdapter;
+    StockAdapter stockAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +35,8 @@ public class StockActivity extends AppCompatActivity {
         recyclerView=findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
-        productAdapter = new ProductAdapter(this::ClickedProduct);
-        getAllProducts();
+        stockAdapter = new StockAdapter(this::ClickedProduct);
+        getAllStocks();
         btnMenu.setOnClickListener(v->{
             startActivity(new Intent(getApplicationContext(), MenuActivity.class));
         });
@@ -44,21 +45,21 @@ public class StockActivity extends AppCompatActivity {
     private void ClickedProduct(Product product) {
     }
 
-    public void getAllProducts(){
-        Call<List<Product>> productlist = ApiClient.getProductsService().getProducts();
-        productlist.enqueue(new Callback<List<Product>>() {
+    public void getAllStocks(){
+        Call<List<Stock>> stocklist = ApiClient.getStocksService().getStocks();
+        stocklist.enqueue(new Callback<List<Stock>>() {
             @Override
-            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+            public void onResponse(Call<List<Stock>> call, Response<List<Stock>> response) {
                 if(response.isSuccessful()){
-                    List<Product> productRespons = response.body();
-                    Log.e("ok", productRespons.toString());
-                    productAdapter.setData(productRespons);
-                    recyclerView.setAdapter(productAdapter);
+                    List<Stock> stockRespons = response.body();
+                    Log.e("ok", stockRespons.toString());
+                    stockAdapter.setData(stockRespons);
+                    recyclerView.setAdapter(stockAdapter);
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Product>> call, Throwable t) {
+            public void onFailure(Call<List<Stock>> call, Throwable t) {
                 Log.e("failure",t.getLocalizedMessage());
             }
         });

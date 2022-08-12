@@ -1,10 +1,12 @@
 package com.example.appmantenimiento.Entity;
 
-public class SpinnerModel {
+import java.io.Serializable;
+
+public class Stock implements Serializable {
     private Long id;
-    private  String name ;
+    private String product;
     private String brand;
-    private String stock;
+    private float stock;
     private String unit;
 
     public Long getId() {
@@ -15,12 +17,12 @@ public class SpinnerModel {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getProduct() {
+        return product;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProduct(String product) {
+        this.product = product;
     }
 
     public String getBrand() {
@@ -31,11 +33,11 @@ public class SpinnerModel {
         this.brand = brand;
     }
 
-    public String getStock() {
+    public float getStock() {
         return stock;
     }
 
-    public void setStock(String stock) {
+    public void setStock(float stock) {
         this.stock = stock;
     }
 
@@ -47,15 +49,22 @@ public class SpinnerModel {
         this.unit = unit;
     }
 
+    public Stock(Long id, String product, String brand, float stock, String unit) {
+        this.id = id;
+        this.product = product;
+        this.brand = brand;
+        this.stock = stock;
+        this.unit = unit;
+    }
+
     @Override
     public String toString() {
-        return "ProductResponse{" +
+        return "Stock{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", product='" + product + '\'' +
                 ", brand='" + brand + '\'' +
-                ", stock='" + stock + '\'' +
+                ", stock=" + stock +
                 ", unit='" + unit + '\'' +
                 '}';
     }
 }
-

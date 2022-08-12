@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,10 +20,8 @@ import com.example.appmantenimiento.Dto.OutputProductDto;
 import com.example.appmantenimiento.Dto.OutputProductTotalDto;
 import com.example.appmantenimiento.Entity.Product;
 import com.example.appmantenimiento.adapter.OutputProductAdapter;
-import com.example.appmantenimiento.adapter.ProductAdapter;
 import com.example.appmantenimiento.api.ApiClient;
 
-import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -185,9 +182,9 @@ public class ProductToLocationActivity extends AppCompatActivity {
     }
 
     private void getAllProducts() {
-        productName = new ArrayList<>();
+       /* productName = new ArrayList<>();
         listIdProduct = new ArrayList<>();
-        Call<List<Product>> productlist = ApiClient.getProductsService().getProducts();
+        Call<List<Product>> productlist = ApiClient.getProductService().getProduct();
         final Context context = this;
         productlist.enqueue(new Callback<List<Product>>() {
             @Override
@@ -208,6 +205,6 @@ public class ProductToLocationActivity extends AppCompatActivity {
                 t.printStackTrace();
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
     }
 }

@@ -1,15 +1,18 @@
-package com.example.appmantenimiento.Entity;
+package com.example.appmantenimiento.Dto;
 
 import java.io.Serializable;
 
-public class Input implements Serializable {
-
+public class InputDto implements Serializable {
     private String day;
     private float amount;
     private String product;
     private String brand;
     private String users;
     private String unit;
+
+    public InputDto() {
+
+    }
 
     public String getDay() {
         return day;
@@ -59,7 +62,7 @@ public class Input implements Serializable {
         this.unit = unit;
     }
 
-    public Input(String day, float amount, String product, String brand, String users, String unit) {
+    public InputDto(String day, float amount, String product, String brand, String users, String unit) {
         this.day = day;
         this.amount = amount;
         this.product = product;
@@ -70,7 +73,7 @@ public class Input implements Serializable {
 
     @Override
     public String toString() {
-        return "Input{" +
+        return "InputDto{" +
                 "day='" + day + '\'' +
                 ", amount=" + amount +
                 ", product='" + product + '\'' +
