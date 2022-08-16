@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,6 +22,8 @@ import com.example.appmantenimiento.Dto.OutputProductTotalDto;
 import com.example.appmantenimiento.Entity.Product;
 import com.example.appmantenimiento.adapter.OutputProductAdapter;
 import com.example.appmantenimiento.api.ApiClient;
+import com.lazyprogrammer.motiontoast.MotionStyle;
+import com.lazyprogrammer.motiontoast.MotionToast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,25 +36,24 @@ import retrofit2.Response;
 
 public class ProductToLocationActivity extends AppCompatActivity {
     //Initialize variable array
-    ArrayList<String> productName, mounthName;
+    ArrayList<String>  mounthName;
+    ArrayList<String> productsName;
     //Initialize spinner
     Spinner spinner_product, spinner_mount;
     ImageButton backMenu;
     Button btnProcess;
     //Initialize varible
     Long idProductSelect;
-    String date, year, mounth;
-    //Initializa List variable
-    List<Long> listIdMounth, listIdProduct, listIdLocation;
+    String date, year, mounth,productName,rol;
     RecyclerView recyclerViewLocation;
     OutputProductAdapter outputProductAdapter;
-
+    public static SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_to_location);
-        productName=new ArrayList<>();
+        productsName=new ArrayList<>();
         spinner_product=findViewById(R.id.spinerLocationProduct);
         spinner_mount=findViewById(R.id.spinerMes);
         backMenu=findViewById(R.id.btn_backOutProduct);
@@ -66,12 +68,18 @@ public class ProductToLocationActivity extends AppCompatActivity {
         getYear();
         getAllProducts();
         getAllMonths();
+        preferences = getSharedPreferences(getPackageName()+ "_preferences", Context.MODE_PRIVATE);
+        rol=preferences.getString("rol", "");
 
         // click Buttom Back
         backMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),MenuActivity.class));
+                if(rol.equals("ADMIN")){
+                    startActivity(new Intent(getApplicationContext(), MenuActivity.class));
+                }else{
+                    startActivity(new Intent(getApplicationContext(), MenuUserActivity.class));
+                }
             }
         });
 
@@ -79,8 +87,7 @@ public class ProductToLocationActivity extends AppCompatActivity {
         spinner_product.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                int positionSpinner= spinner_product.getSelectedItemPosition();
-                idProductSelect = listIdProduct.get(positionSpinner);
+                productName=(String) spinner_product.getSelectedItem();
 
             }
 
@@ -126,7 +133,7 @@ public class ProductToLocationActivity extends AppCompatActivity {
 
     private void getDataTotalProduct() {
         OutputProductDto outputProductDto = new OutputProductDto();
-        outputProductDto.setProduct(idProductSelect);
+        outputProductDto.setProduct(productName);
         outputProductDto.setDate(date);
         Call<List<OutputProductTotalDto>>TotalProductService=ApiClient.getOutputService().sumOutput(outputProductDto);
         TotalProductService.enqueue(new Callback<List<OutputProductTotalDto>>() {
@@ -138,7 +145,13 @@ public class ProductToLocationActivity extends AppCompatActivity {
                         outputProductAdapter.setData(outputProductTotalResponse);
                         recyclerViewLocation.setAdapter(outputProductAdapter);
                     }else{
-                        Toast.makeText(getApplicationContext(), "Aun no hay registros", Toast.LENGTH_SHORT).show();
+                        MotionToast motionToast =  new MotionToast(ProductToLocationActivity.this,0,
+                                MotionStyle.LIGHT,
+                                MotionStyle.WARNING,
+                                MotionStyle.BOTTOM,
+                                "ALERTA",
+                                "No hay registros en este mes",
+                                MotionStyle.LENGTH_SHORT).show();
                     }
 
                 }
@@ -182,22 +195,21 @@ public class ProductToLocationActivity extends AppCompatActivity {
     }
 
     private void getAllProducts() {
-       /* productName = new ArrayList<>();
-        listIdProduct = new ArrayList<>();
+        productsName = new ArrayList<>();
+
         Call<List<Product>> productlist = ApiClient.getProductService().getProduct();
         final Context context = this;
         productlist.enqueue(new Callback<List<Product>>() {
             @Override
-            public void onResponse(Call<List<Product>> productlist, Response<List<Product>> response) {
-                for (Product p : response.body()) {
-                    productName.add(p.getName());
-                    listIdProduct.add(p.getId());
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
 
+                for ( Product p : response.body()) {
+                    productsName.add(p.getName());
                 }
-                ArrayAdapter<String> adapterProduct = new ArrayAdapter<>( context,android.R.layout.simple_spinner_item,productName);
-                adapterProduct.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner_product.setAdapter(adapterProduct);
 
+                ArrayAdapter<String> adapter = new ArrayAdapter<>( context,android.R.layout.simple_spinner_item,productsName);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner_product.setAdapter(adapter);
             }
 
             @Override
@@ -205,6 +217,6 @@ public class ProductToLocationActivity extends AppCompatActivity {
                 t.printStackTrace();
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        });*/
+        });
     }
 }

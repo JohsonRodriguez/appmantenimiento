@@ -3,33 +3,23 @@ package com.example.appmantenimiento.Dto;
 import java.io.Serializable;
 
 public class EmployeeTotalDto implements Serializable {
-    private Long id;
-    private String name;
-    private String lastname;
+
+    private String employee;
     private Double total;
+    private String unit;
 
-    public Long getId() {
-        return id;
+    public EmployeeTotalDto(String employee, Double total, String unit) {
+        this.employee = employee;
+        this.total = total;
+        this.unit = unit;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getEmployee() {
+        return employee;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setEmployee(String employee) {
+        this.employee = employee;
     }
 
     public Double getTotal() {
@@ -40,20 +30,20 @@ public class EmployeeTotalDto implements Serializable {
         this.total = total;
     }
 
-    public EmployeeTotalDto(Long id, String name, String lastname, Double total) {
-        this.id = id;
-        this.name = name;
-        this.lastname = lastname;
-        this.total = total;
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
     @Override
     public String toString() {
         return "EmployeeTotalDto{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", lastname='" + lastname + '\'' +
+                "employee='" + employee + '\'' +
                 ", total=" + total +
+                ", unit='" + unit + '\'' +
                 '}';
     }
 }

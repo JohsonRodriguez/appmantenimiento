@@ -39,10 +39,11 @@ public class OuputEmployeeAdapter extends RecyclerView.Adapter<OuputEmployeeAdap
     @Override
     public void onBindViewHolder(@NonNull OuputEmployeeAdapter.ViewHolder holder, int position) {
       EmployeeTotalDto employeeTotalDto=outputEmployeeList.get(position);
-      String name = employeeTotalDto.getName() + " " + employeeTotalDto.getLastname();
+      String name = employeeTotalDto.getEmployee();
       Double total = employeeTotalDto.getTotal();
+      String unit= employeeTotalDto.getUnit();
       holder._productEmployee.setText(name);
-      holder._stockEmployee.setText(total.toString());
+      holder._stockEmployee.setText(total.toString()+" "+ unit);
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.example.appmantenimiento.services.LocationService;
 import com.example.appmantenimiento.services.OutputService;
 import com.example.appmantenimiento.services.ProductService;
 import com.example.appmantenimiento.services.StockService;
+import com.example.appmantenimiento.services.UserService;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -55,6 +56,11 @@ public class ApiClient {
     public static ProductService getProductService(){
         ProductService productService=getRetrofit().create(ProductService.class);
         return productService;
+    }
+
+    public static UserService getUserService(){
+        UserService userService=getRetrofit().create(UserService.class);
+        return userService;
     }
 
 }

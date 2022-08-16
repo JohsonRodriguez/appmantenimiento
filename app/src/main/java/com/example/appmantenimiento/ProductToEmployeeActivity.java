@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +25,8 @@ import com.example.appmantenimiento.Entity.Product;
 import com.example.appmantenimiento.adapter.OuputEmployeeAdapter;
 import com.example.appmantenimiento.adapter.OutputProductAdapter;
 import com.example.appmantenimiento.api.ApiClient;
+import com.lazyprogrammer.motiontoast.MotionStyle;
+import com.lazyprogrammer.motiontoast.MotionToast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,24 +39,24 @@ import retrofit2.Response;
 
 public class ProductToEmployeeActivity extends AppCompatActivity {
     //Initialize variable array
-    ArrayList<String> productName, mounthName;
+    ArrayList<String> productsName, mounthName;
     //Initialize spinner
     Spinner spinner_product, spinner_mount;
     ImageButton backMenu;
     Button btnProcess;
     //Initialize varible
     Long idProductSelect;
-    String date, year, mounth;
+    String date, year, mounth,productName,rol;
     //Initializa List variable
     List<Long> listIdProduct;
     RecyclerView recyclerViewEmployee;
    OuputEmployeeAdapter ouputEmployeeAdapter;
-
+    public static SharedPreferences preferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_to_employee);
-        productName=new ArrayList<>();
+        productsName=new ArrayList<>();
         spinner_product=findViewById(R.id.spinerEmployeeProduct);
         spinner_mount=findViewById(R.id.spinerMesEmployee);
         backMenu=findViewById(R.id.btn_backMenuEmployee);
@@ -68,12 +71,18 @@ public class ProductToEmployeeActivity extends AppCompatActivity {
         getYear();
         getAllProducts();
         getAllMonths();
+        preferences = getSharedPreferences(getPackageName()+ "_preferences", Context.MODE_PRIVATE);
+        rol=preferences.getString("rol", "");
 
         // click Buttom Back
         backMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),MenuActivity.class));
+                if(rol.equals("ADMIN")){
+                    startActivity(new Intent(getApplicationContext(), MenuActivity.class));
+                }else{
+                    startActivity(new Intent(getApplicationContext(), MenuUserActivity.class));
+                }
             }
         });
 
@@ -81,8 +90,7 @@ public class ProductToEmployeeActivity extends AppCompatActivity {
         spinner_product.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                int positionSpinner= spinner_product.getSelectedItemPosition();
-                idProductSelect = listIdProduct.get(positionSpinner);
+                productName=(String) spinner_product.getSelectedItem();
 
             }
 
@@ -127,7 +135,7 @@ public class ProductToEmployeeActivity extends AppCompatActivity {
 
     private void getDataTotalEmployee() {
          OutputProductDto outputProductDto = new OutputProductDto();
-        outputProductDto.setProduct(idProductSelect);
+        outputProductDto.setProduct(productName);
         outputProductDto.setDate(date);
         Call<List<EmployeeTotalDto>> TotalEmployeeService= ApiClient.getOutputService().sumOutputEmployee(outputProductDto);
         TotalEmployeeService.enqueue(new Callback<List<EmployeeTotalDto>>() {
@@ -140,7 +148,13 @@ public class ProductToEmployeeActivity extends AppCompatActivity {
                         ouputEmployeeAdapter.setData(outputEmployeeTotalResponse);
                         recyclerViewEmployee.setAdapter(ouputEmployeeAdapter);
                     }else{
-                        Toast.makeText(getApplicationContext(),"Aun no hay registros" , Toast.LENGTH_SHORT).show();
+                        MotionToast motionToast =  new MotionToast(ProductToEmployeeActivity.this,0,
+                                MotionStyle.LIGHT,
+                                MotionStyle.WARNING,
+                                MotionStyle.BOTTOM,
+                                "ALERTA",
+                                "No hay registros en este mes",
+                                MotionStyle.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -184,22 +198,21 @@ public class ProductToEmployeeActivity extends AppCompatActivity {
     }
 
     private void getAllProducts() {
-      /*  productName = new ArrayList<>();
-        listIdProduct = new ArrayList<>();
-        Call<List<Product>> productlist = ApiClient.getProductsService().getProducts();
+        productsName = new ArrayList<>();
+
+        Call<List<Product>> productlist = ApiClient.getProductService().getProduct();
         final Context context = this;
         productlist.enqueue(new Callback<List<Product>>() {
             @Override
-            public void onResponse(Call<List<Product>> productlist, Response<List<Product>> response) {
-                for (Product p : response.body()) {
-                    productName.add(p.getName());
-                    listIdProduct.add(p.getId());
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
 
+                for ( Product p : response.body()) {
+                    productsName.add(p.getName());
                 }
-                ArrayAdapter<String> adapterProduct = new ArrayAdapter<>( context,android.R.layout.simple_spinner_item,productName);
-                adapterProduct.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner_product.setAdapter(adapterProduct);
 
+                ArrayAdapter<String> adapter = new ArrayAdapter<>( context,android.R.layout.simple_spinner_item,productsName);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner_product.setAdapter(adapter);
             }
 
             @Override
@@ -207,6 +220,6 @@ public class ProductToEmployeeActivity extends AppCompatActivity {
                 t.printStackTrace();
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        });*/
+        });
     }
 }

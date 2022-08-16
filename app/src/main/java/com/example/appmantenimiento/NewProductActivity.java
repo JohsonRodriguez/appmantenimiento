@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,9 +18,14 @@ import android.widget.Toast;
 
 import com.example.appmantenimiento.Dto.ProductDto;
 import com.example.appmantenimiento.api.ApiClient;
+import com.lazyprogrammer.motiontoast.MotionStyle;
+import com.lazyprogrammer.motiontoast.MotionToast;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,8 +37,8 @@ public class NewProductActivity extends AppCompatActivity {
     ArrayList inputName;
     Button btnadd;
     ImageButton back;
-    String product, brand, unit;
-
+    String product, brand, unit,rol;
+    public static SharedPreferences preferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,11 +49,17 @@ public class NewProductActivity extends AppCompatActivity {
         btnadd=findViewById(R.id.btn_AddProduct);
         back=findViewById(R.id.btn_back);
         getAllInputs();
+        preferences = getSharedPreferences(getPackageName()+ "_preferences", Context.MODE_PRIVATE);
+        rol=preferences.getString("rol", "");
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), MenuActivity.class));
+                if(rol.equals("ADMIN")){
+                    startActivity(new Intent(getApplicationContext(), MenuActivity.class));
+                }else{
+                    startActivity(new Intent(getApplicationContext(), MenuUserActivity.class));
+                }
             }
         });
         spinner_unit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -67,7 +80,18 @@ public class NewProductActivity extends AppCompatActivity {
             public void onClick(View view) {
                 product=et_product.getText().toString().toUpperCase();
                 brand=et_brand.getText().toString().toUpperCase();
-                addProduct(product,brand,unit);
+                if (product.isEmpty() ||brand.isEmpty() ){
+                    MotionToast motionToast =  new MotionToast(NewProductActivity.this,0,
+                            MotionStyle.LIGHT,
+                            MotionStyle.WARNING,
+                            MotionStyle.BOTTOM,
+                            "ALERTA",
+                            "Debe llenar todos los campos",
+                            MotionStyle.LENGTH_SHORT).show();
+                }else{
+                    addProduct(product,brand,unit);
+                }
+
             }
         });
 
@@ -82,14 +106,53 @@ public class NewProductActivity extends AppCompatActivity {
         inputProduct.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                Toast.makeText(getApplicationContext(), "Producto guardado", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext(), NewProductActivity.class));
+                if (response.isSuccessful()){
+                    MotionToast motionToast =  new MotionToast(NewProductActivity.this,0,
+                            MotionStyle.LIGHT,
+                            MotionStyle.SUCCESS,
+                            MotionStyle.BOTTOM,
+                            "EXITO",
+                            "Producto guardado",
+                            MotionStyle.LENGTH_SHORT).show();
+                    startActivity(new Intent(getApplicationContext(), NewProductActivity.class));
+                }else{
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+
+                        MotionToast motionToastR =  new MotionToast(NewProductActivity.this,0,
+                                MotionStyle.LIGHT,
+                                MotionStyle.ERROR,
+                                MotionStyle.BOTTOM,
+                                "ERROR",
+                                jObjError.getString("details"),
+                                MotionStyle.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        MotionToast motionToastR =  new MotionToast(NewProductActivity.this,0,
+                                MotionStyle.LIGHT,
+                                MotionStyle.ERROR,
+                                MotionStyle.BOTTOM,
+                                "ERROR",
+                                "Ocurrio un error inesperado",
+                                MotionStyle.LENGTH_SHORT).show();
+                    }
+
+
+
+                }
+
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 t.printStackTrace();
-                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                MotionToast motionToastR =  new MotionToast(NewProductActivity.this,0,
+                        MotionStyle.LIGHT,
+                        MotionStyle.ERROR,
+                        MotionStyle.BOTTOM,
+                        "ERROR",
+                        t.getMessage(),
+                        MotionStyle.LENGTH_SHORT).show();
+
 
             }
         });

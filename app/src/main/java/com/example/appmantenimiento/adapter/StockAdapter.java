@@ -66,6 +66,7 @@ public class StockAdapter extends RecyclerView.Adapter<StockAdapter.ViewHolder> 
             _product=itemView.findViewById(R.id._tproduct);
             _brand=itemView.findViewById(R.id._tbrand);
             _stock=itemView.findViewById(R.id._tstock);
+
         }
     }
 }

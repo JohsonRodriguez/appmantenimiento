@@ -10,30 +10,32 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appmantenimiento.Dto.AllInputDto;
+import com.example.appmantenimiento.Entity.Input;
 import com.example.appmantenimiento.R;
 
 import java.util.List;
 
 public class AllInputAdapter extends RecyclerView.Adapter<AllInputAdapter.ViewHolder> {
-    private List<AllInputDto> allInputsList;
+    private List<Input> allInputsList;
     private Context context;
     private AllInputAdapter.ClickedItem clickedItem;
     public AllInputAdapter(AllInputAdapter.ClickedItem clickedItem) {
         this.clickedItem=clickedItem;
     }
 
-    public void setData(List<AllInputDto> allInputsList){
+    public void setData(List<Input> allInputsList){
         this.allInputsList = allInputsList;
         notifyDataSetChanged();
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView _productName, _productBrand, _productAmount, _userName;
+        TextView _productName, _productBrand, _productAmount, _userName,_unit;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             _productName=itemView.findViewById(R.id._tproduct);
             _productBrand=itemView.findViewById(R.id._tbrand);
             _productAmount=itemView.findViewById(R.id._tvstock);
             _userName=itemView.findViewById(R.id._tvuser);
+            _unit=itemView.findViewById(R.id._tvunit);
 
         }
     }
@@ -48,15 +50,17 @@ public class AllInputAdapter extends RecyclerView.Adapter<AllInputAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull AllInputAdapter.ViewHolder holder, int position) {
-        AllInputDto allInputDto=allInputsList.get(position);
-        String pName = allInputDto.getProductName();
-        String pBrand = allInputDto.getBrandName();
-        String users = allInputDto.getUserName();
-        String pAmount = allInputDto.getAmount().toString();
+        Input allInputDto=allInputsList.get(position);
+        String pName = allInputDto.getProduct();
+        String pBrand = allInputDto.getBrand();
+        String users = allInputDto.getUsers();
+        String pAmount = String.valueOf(allInputDto.getAmount());
+        String unit= allInputDto.getUnit();
         holder._productName.setText(pName);
         holder._productBrand.setText(pBrand);
         holder._userName.setText(users);
         holder._productAmount.setText(pAmount);
+        holder._unit.setText(unit);
 
     }
 

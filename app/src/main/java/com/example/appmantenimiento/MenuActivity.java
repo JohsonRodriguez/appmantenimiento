@@ -3,15 +3,21 @@ package com.example.appmantenimiento;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class MenuActivity extends AppCompatActivity {
-
-
-    CardView btn_newProduct,btn_stock,btn_ingProd,  btn_SalProduct, btn_Location, btn_Employee, btn_AllInput,btn_AllOutputs;
+    public static SharedPreferences preferences;
+    TextView user;
+    CardView btn_newProduct,btn_stock,btn_ingProd,
+            btn_SalProduct, btn_Location, btn_Employee,
+            btn_AllInput,btn_AllOutputs,btn_Logout,btn_month;
+    String name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +31,12 @@ public class MenuActivity extends AppCompatActivity {
         btn_AllInput=findViewById(R.id.btn_Inputs);
         btn_AllOutputs=findViewById(R.id.btn_Outputs);
         btn_newProduct=findViewById(R.id.btn_newProduct);
+        btn_Logout=findViewById(R.id.btn_logout);
+        btn_month=findViewById(R.id.btn_Month);
+        user=findViewById(R.id.txtnameuser);
+        preferences = getSharedPreferences(getPackageName()+ "_preferences", Context.MODE_PRIVATE);
+        name=preferences.getString("user", "");
+        user.setText("Hola " + name);
 
         btn_newProduct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,7 +53,12 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-
+btn_month.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        startActivity(new Intent(getApplicationContext(), ProductByMonthActivity.class));
+    }
+});
 
         btn_AllInput.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +95,14 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), OutputActivity.class));
+            }
+        });
+
+        btn_Logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                finish();
             }
         });
     }

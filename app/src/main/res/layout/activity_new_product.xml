@@ -1,165 +1,171 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
     tools:context=".NewProductActivity">
-
-    <ImageButton
-        android:id="@+id/btn_back"
-        android:layout_width="40dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="36dp"
-        android:background="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/flecha" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="100dp"
-        android:text="Registrar Producto"
-        android:textColor="@color/blueapp"
-        android:textSize="25dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.14"
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp">
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:background="@drawable/shape_menu"
+            app:srcCompat="@drawable/ic_baseline_arrow_back"
+            android:layout_marginLeft="10dp"
 
-        app:layout_constraintStart_toEndOf="@+id/btn_back"
-        app:layout_constraintTop_toTopOf="parent" />
+            tools:layout_editor_absoluteX="10dp"
+            tools:layout_editor_absoluteY="36dp" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Registro de nuevos productos"
+            android:fontFamily="@font/rubikregular"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="12dp"
-        android:text="Información general"
-        android:textColor="@color/blueapp"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.062"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/rubikregular"
+            android:text="Información general"
+            android:textColor="#A6A6A6"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="30dp"
+            tools:layout_editor_absoluteX="45dp"
+            tools:layout_editor_absoluteY="79dp" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="380dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:srcCompat="@drawable/linea" />
-    <!-- text view to show the selected item-->
-    <!--    <TextView
-            android:id="@+id/testView"
-            android:layout_width="381dp"
-            android:layout_height="42dp"
-            android:background="@android:drawable/editbox_background"
-            android:drawableEnd="@drawable/ic_outline_keyboard_arrow_down_24"
-            android:gravity="center_vertical"
-            android:hint="Seleciona el Producto"
-            android:padding="12dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="15dp" />-->
+        <ImageView
+            android:id="@+id/imageView245"
+            android:layout_width="380dp"
+            android:layout_height="2dp"
+            android:background="#DADBDA"
+            android:layout_marginLeft="10dp"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="118dp" />
+        <TextView
+            android:id="@+id/tvfrase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+            android:fontFamily="@font/rubikregular"
+            android:gravity="left"
+            android:textStyle="bold"
+            android:text="Ingrese nombre del producto"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Ingrese Producto"
-        android:textColor="@color/blueapp"
-        android:textSize="15dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.056"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        <EditText
+            android:id="@+id/txtProduct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="30dp"
+            android:drawablePadding="12dp"
+            android:ems="10"
+            android:fontFamily="@font/rubikregular"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:background="@drawable/custom_input"
+            android:inputType="textPersonName"
+            android:minHeight="48dp" />
+        <TextView
+            android:id="@+id/tvfras"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+            android:fontFamily="@font/rubikregular"
+            android:gravity="left"
+            android:textStyle="bold"
+            android:text="Ingrese nombre de la marca del producto"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
 
-    <EditText
-        android:id="@+id/txtProduct"
-        android:layout_width="380dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="Ingrese Marca"
-        android:textColor="@color/blueapp"
-        android:textSize="15dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.066"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtProduct" />
-
-    <EditText
-        android:id="@+id/txtBrand"
-        android:layout_width="380dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Selecione tipo de unidad"
-        android:textColor="@color/blueapp"
-        android:textSize="15dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.071"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtBrand" />
-
-    <Spinner
-        android:id="@+id/spinerUnit"
-        android:layout_width="380dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/spinner"
-        android:spinnerMode="dropdown"
-        android:text="Seleccion Mes"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
-
-
-    <Button
-        android:id="@+id/btn_AddProduct"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:text="Agregar"
-        android:background="@drawable/shape_button"
-        android:textColor="@color/white"
-        android:textSize="20dp"
-
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinerUnit" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:id="@+id/txtBrand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="30dp"
+            android:drawablePadding="12dp"
+            android:ems="10"
+            android:fontFamily="@font/rubikregular"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:background="@drawable/custom_input"
+            android:inputType="textPersonName"
+            android:minHeight="48dp" />
+        <TextView
+            android:id="@+id/tvfra"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+            android:fontFamily="@font/rubikregular"
+            android:gravity="left"
+            android:textStyle="bold"
+            android:text="Seleccione tipo de unidad"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+        <Spinner
+            android:id="@+id/spinerUnit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="30dp"
+            android:drawablePadding="12dp"
+            android:ems="10"
+            android:fontFamily="@font/rubikregular"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:background="@drawable/spinner"
+            android:spinnerMode="dropdown"
+            android:minHeight="48dp"
+            />
+        <Button
+            android:id="@+id/btn_AddProduct"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/button"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:fontFamily="@font/rubikregular"
+            android:text="AGREGAR PRODUCTO"
+            android:textColor="#FFFF"
+            tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+   </LinearLayout>
+</LinearLayout>

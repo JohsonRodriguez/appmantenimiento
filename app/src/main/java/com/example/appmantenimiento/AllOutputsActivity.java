@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,9 +20,12 @@ import android.widget.Toast;
 
 import com.example.appmantenimiento.Dto.AllInputDto;
 import com.example.appmantenimiento.Dto.AllOutputs;
+import com.example.appmantenimiento.Entity.Output;
 import com.example.appmantenimiento.adapter.AllInputAdapter;
 import com.example.appmantenimiento.adapter.AllOutputAdapter;
 import com.example.appmantenimiento.api.ApiClient;
+import com.lazyprogrammer.motiontoast.MotionStyle;
+import com.lazyprogrammer.motiontoast.MotionToast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -37,8 +42,9 @@ public class AllOutputsActivity extends AppCompatActivity {
     private Button dateButton;
     private ImageButton btnBack;
     RecyclerView recyclerView;
-    String today;
+    String today,rol;
     AllOutputAdapter allOutputAdapter;
+    public static SharedPreferences preferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,10 +60,17 @@ public class AllOutputsActivity extends AppCompatActivity {
         allOutputAdapter = new AllOutputAdapter(this::ClickedOutputs);
         getToday();
         getAllRegisters(today);
+        preferences = getSharedPreferences(getPackageName()+ "_preferences", Context.MODE_PRIVATE);
+        rol=preferences.getString("rol", "");
+
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), MenuActivity.class));
+                if(rol.equals("ADMIN")){
+                    startActivity(new Intent(getApplicationContext(), MenuActivity.class));
+                }else{
+                    startActivity(new Intent(getApplicationContext(), MenuUserActivity.class));
+                }
             }
         });
     }
@@ -66,23 +79,29 @@ public class AllOutputsActivity extends AppCompatActivity {
     }
 
     private void getAllRegisters(String today) {
-        Call<List<AllOutputs>> allOutputs = ApiClient.getOutputService().getAllOutputsByDay(today);
-        allOutputs.enqueue(new Callback<List<AllOutputs>>() {
+        Call<List<Output>> allOutputs = ApiClient.getOutputService().getAllOutputsByDay(today);
+        allOutputs.enqueue(new Callback<List<Output>>() {
             @Override
-            public void onResponse(Call<List<AllOutputs>> call, Response<List<AllOutputs>> response) {
+            public void onResponse(Call<List<Output>> call, Response<List<Output>> response) {
                 if (response.isSuccessful()){
-                    List<AllOutputs> outputs =response.body();
+                    List<Output> outputs =response.body();
                     if (!outputs.isEmpty()){
                         allOutputAdapter.setData(outputs);
                         recyclerView.setAdapter(allOutputAdapter);
                     }else{
-                        Toast.makeText(getApplicationContext(),"Aun no hay registros" , Toast.LENGTH_SHORT).show();
+                        MotionToast motionToast =  new MotionToast(AllOutputsActivity.this,0,
+                                MotionStyle.LIGHT,
+                                MotionStyle.WARNING,
+                                MotionStyle.BOTTOM,
+                                "ALERTA",
+                                "No hay registros en este día",
+                                MotionStyle.LENGTH_SHORT).show();
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<List<AllOutputs>> call, Throwable t) {
+            public void onFailure(Call<List<Output>> call, Throwable t) {
                 t.printStackTrace();
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }

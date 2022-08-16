@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,8 +19,11 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.appmantenimiento.Dto.AllInputDto;
+import com.example.appmantenimiento.Entity.Input;
 import com.example.appmantenimiento.adapter.AllInputAdapter;
 import com.example.appmantenimiento.api.ApiClient;
+import com.lazyprogrammer.motiontoast.MotionStyle;
+import com.lazyprogrammer.motiontoast.MotionToast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -35,9 +40,9 @@ public class InputRegistersActivity extends AppCompatActivity {
     private Button dateButton;
     private ImageButton btnBack;
     RecyclerView recyclerView;
-    String today;
+    String today,rol;
     AllInputAdapter allInputAdapter;
-
+    public static SharedPreferences preferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,11 +58,17 @@ public class InputRegistersActivity extends AppCompatActivity {
         allInputAdapter = new AllInputAdapter(this::ClickedInputs);
         getToday();
         getAllRegisters(today);
+        preferences = getSharedPreferences(getPackageName()+ "_preferences", Context.MODE_PRIVATE);
+        rol=preferences.getString("rol", "");
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), MenuActivity.class));
+                if(rol.equals("ADMIN")){
+                    startActivity(new Intent(getApplicationContext(), MenuActivity.class));
+                }else{
+                    startActivity(new Intent(getApplicationContext(), MenuUserActivity.class));
+                }
             }
         });
     }
@@ -66,23 +77,29 @@ public class InputRegistersActivity extends AppCompatActivity {
     }
 
     private void getAllRegisters(String today) {
-        Call<List<AllInputDto>> allInputs = ApiClient.getInputService().getAllInputs(today);
-        allInputs.enqueue(new Callback<List<AllInputDto>>() {
+        Call<List<Input>> allInputs = ApiClient.getInputService().getAllInputs(today);
+        allInputs.enqueue(new Callback<List<Input>>() {
             @Override
-            public void onResponse(Call<List<AllInputDto>> call, Response<List<AllInputDto>> response) {
+            public void onResponse(Call<List<Input>> call, Response<List<Input>> response) {
                 if (response.isSuccessful()){
-                    List<AllInputDto> inputs =response.body();
+                    List<Input> inputs =response.body();
                     if (!inputs.isEmpty()){
                         allInputAdapter.setData(inputs);
                         recyclerView.setAdapter(allInputAdapter);
                     }else{
-                        Toast.makeText(getApplicationContext(),"Aun no hay registros" , Toast.LENGTH_SHORT).show();
+                        MotionToast motionToast =  new MotionToast(InputRegistersActivity.this,0,
+                                MotionStyle.LIGHT,
+                                MotionStyle.WARNING,
+                                MotionStyle.BOTTOM,
+                                "ALERTA",
+                                "No hay registros en este día",
+                                MotionStyle.LENGTH_SHORT).show();
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<List<AllInputDto>> call, Throwable t) {
+            public void onFailure(Call<List<Input>> call, Throwable t) {
                 t.printStackTrace();
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }

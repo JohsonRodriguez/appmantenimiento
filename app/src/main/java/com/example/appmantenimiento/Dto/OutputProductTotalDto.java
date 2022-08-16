@@ -5,6 +5,13 @@ import java.io.Serializable;
 public class OutputProductTotalDto implements Serializable {
     private String name;
     private Double total;
+    private String unit;
+
+    public OutputProductTotalDto(String name, Double total, String unit) {
+        this.name = name;
+        this.total = total;
+        this.unit = unit;
+    }
 
     public String getName() {
         return name;
@@ -22,9 +29,12 @@ public class OutputProductTotalDto implements Serializable {
         this.total = total;
     }
 
-    public OutputProductTotalDto(String name, Double total) {
-        this.name = name;
-        this.total = total;
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
     @Override
@@ -32,8 +42,7 @@ public class OutputProductTotalDto implements Serializable {
         return "OutputProductTotalDto{" +
                 "name='" + name + '\'' +
                 ", total=" + total +
+                ", unit='" + unit + '\'' +
                 '}';
     }
-
-
 }

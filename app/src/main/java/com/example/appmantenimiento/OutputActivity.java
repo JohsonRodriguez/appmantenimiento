@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,15 +14,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.appmantenimiento.Dto.OuputDto;
 import com.example.appmantenimiento.Dto.ProductBrandDto;
 import com.example.appmantenimiento.Dto.ProductNameDto;
+import com.example.appmantenimiento.Entity.Brand;
 import com.example.appmantenimiento.Entity.Employee;
 import com.example.appmantenimiento.Entity.Location;
 import com.example.appmantenimiento.Entity.Output;
 import com.example.appmantenimiento.Entity.Product;
 import com.example.appmantenimiento.api.ApiClient;
+import com.lazyprogrammer.motiontoast.MotionStyle;
+import com.lazyprogrammer.motiontoast.MotionToast;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,13 +40,22 @@ import retrofit2.Response;
 
 public class OutputActivity extends AppCompatActivity {
     ArrayList<String> employeeName, productsName, locationName,productsBrand;
-    Spinner spinner_Employee,spinner_Product, spinner_location,spinner_brand;
-    Long idEmployeeSelect, idProductSelect, idLocationSelect, amount,_users;
-    List<Long> listIdEmployee, listIdProduct, listIdLocation;
+    Spinner spinner_Employee,spinner_Product, spinner_location,spinner_Brand;
+    float  amount;
+    List<Long> listIdEmployee,  listIdLocation;
     ImageButton backMenu;
     EditText _amount;
+    TextView unit;
     Button btnSend;
-    String productName, productBrand;
+    String productName;
+    String productBrand;
+    String _users;
+    String _unit;
+    String employee;
+    String location;
+    String checkAmount;
+    String rol;
+    public static SharedPreferences preferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,21 +69,27 @@ public class OutputActivity extends AppCompatActivity {
         backMenu=findViewById(R.id.btn_atras);
         _amount=findViewById(R.id.edtAmountOut);
         btnSend=findViewById(R.id.btn_Save);
-
+        unit=findViewById(R.id.et1_unit);
         spinner_Employee=findViewById(R.id.spinerPersonal);
         spinner_Product=findViewById(R.id.spinerProduct);
         spinner_location=findViewById(R.id.spinerUbicacion);
-        spinner_brand=findViewById(R.id.spinerBrandOut);
+        spinner_Brand=findViewById(R.id.spinerBrandOut);
 
         getAllEmployees();
         getAllProducts();
         getAllLocations();
+        preferences = getSharedPreferences(getPackageName()+ "_preferences", Context.MODE_PRIVATE);
+        rol=preferences.getString("rol", "");
 
         //Button Back Menu
         backMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), MenuActivity.class));
+                if(rol.equals("ADMIN")){
+                    startActivity(new Intent(getApplicationContext(), MenuActivity.class));
+                }else{
+                    startActivity(new Intent(getApplicationContext(), MenuUserActivity.class));
+                }
             }
         });
 
@@ -75,9 +98,7 @@ public class OutputActivity extends AppCompatActivity {
         spinner_Employee.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                int positionSpinner= spinner_Employee.getSelectedItemPosition();
-                idEmployeeSelect = listIdEmployee.get(positionSpinner);
-                Toast.makeText(getApplicationContext(), idEmployeeSelect.toString(), Toast.LENGTH_SHORT).show();
+                employee=spinner_Employee.getSelectedItem().toString();
             }
 
             @Override
@@ -90,9 +111,6 @@ public class OutputActivity extends AppCompatActivity {
         spinner_Product.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                /*int positionSpinner= spinner_Product.getSelectedItemPosition();
-                idProductSelect = listIdProduct.get(positionSpinner);
-                Toast.makeText(getApplicationContext(), idProductSelect.toString(), Toast.LENGTH_SHORT).show();*/
                 productName=(String) spinner_Product.getSelectedItem();
                 searchBrand(productName);
 
@@ -105,10 +123,10 @@ public class OutputActivity extends AppCompatActivity {
         });
 
         //Select Brand
-        spinner_brand.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinner_Brand.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                productBrand=(String) spinner_brand.getSelectedItem();
+                productBrand=(String) spinner_Brand.getSelectedItem();
             }
 
             @Override
@@ -121,9 +139,7 @@ public class OutputActivity extends AppCompatActivity {
         spinner_location.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                int positionSpinner= spinner_location.getSelectedItemPosition();
-                idLocationSelect = listIdLocation.get(positionSpinner);
-                Toast.makeText(getApplicationContext(), idLocationSelect.toString(), Toast.LENGTH_SHORT).show();
+                location=spinner_location.getSelectedItem().toString();
 
             }
 
@@ -137,9 +153,20 @@ public class OutputActivity extends AppCompatActivity {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                amount= Long.valueOf(_amount.getText().toString());
-                _users= 1L;
-                sendAddOutput(amount,productName,productBrand,_users,idEmployeeSelect,idLocationSelect);
+                checkAmount= _amount.getText().toString();
+                _users= "LEONARDO GUZMAN";
+                if (checkAmount.isEmpty() ||checkAmount.equals("0") ) {
+                    MotionToast motionToast =  new MotionToast(OutputActivity.this,0,
+                            MotionStyle.LIGHT,
+                            MotionStyle.WARNING,
+                            MotionStyle.BOTTOM,
+                            "ALERTA",
+                            "Debe llenar cantidad de productos",
+                            MotionStyle.LENGTH_SHORT).show();
+                } else {
+                    amount= Float.parseFloat(checkAmount);
+                    sendAddOutput(amount,productName,productBrand,_users,employee,location,_unit);
+                }
             }
         });
 
@@ -147,29 +174,29 @@ public class OutputActivity extends AppCompatActivity {
 
 
     private void searchBrand(String productName) {
-        /*final Context context = this;
+        final Context context = this;
         productsBrand=new ArrayList<>();
-        Call<List<ProductBrandDto>> brandList = ApiClient.getProductService().getBrands(productName);
-        brandList.enqueue(new Callback<List<ProductBrandDto>>() {
+        Call<Product> productObt = ApiClient.getProductService().getBrands(productName);
+        productObt.enqueue(new Callback<Product>() {
             @Override
-            public void onResponse(Call<List<ProductBrandDto>> call, Response<List<ProductBrandDto>> response) {
-                for (ProductBrandDto pb : response.body()) {
-                    productsBrand.add(pb.getProductBrand());
-                    *//*listIdProduct.add(p.getId());*//*
-
+            public void onResponse(Call<Product> call, Response<Product> response) {
+                for (Brand pb : response.body().getBrands()) {
+                    productsBrand.add(pb.getName());
                 }
+                _unit=response.body().getUnit();
+                unit.setText(_unit);
                 ArrayAdapter<String> adapter = new ArrayAdapter<>( context,android.R.layout.simple_spinner_item,productsBrand);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner_brand.setAdapter(adapter);
-
+                spinner_Brand.setAdapter(adapter);
             }
 
             @Override
-            public void onFailure(Call<List<ProductBrandDto>> call, Throwable t) {
+            public void onFailure(Call<Product> call, Throwable t) {
                 t.printStackTrace();
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+
             }
-        });*/
+        });
     }
 
 
@@ -204,24 +231,23 @@ public class OutputActivity extends AppCompatActivity {
     private void getAllProducts() {
         productsName = new ArrayList<>();
 
-        Call<List<ProductNameDto>> productlist = ApiClient.getProductService().getProducts();
+        Call<List<Product>> productlist = ApiClient.getProductService().getProduct();
         final Context context = this;
-        productlist.enqueue(new Callback<List<ProductNameDto>>() {
+        productlist.enqueue(new Callback<List<Product>>() {
             @Override
-            public void onResponse(Call<List<ProductNameDto>> productlist, Response<List<ProductNameDto>> response) {
-                for (ProductNameDto p : response.body()) {
-                    productsName.add(p.getProductName());
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
 
-
+                for ( Product p : response.body()) {
+                    productsName.add(p.getName());
                 }
+
                 ArrayAdapter<String> adapter = new ArrayAdapter<>( context,android.R.layout.simple_spinner_item,productsName);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner_Product.setAdapter(adapter);
-
             }
 
             @Override
-            public void onFailure(Call<List<ProductNameDto>> call, Throwable t) {
+            public void onFailure(Call<List<Product>> call, Throwable t) {
                 t.printStackTrace();
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -257,27 +283,62 @@ public class OutputActivity extends AppCompatActivity {
     }
 
     //Send Data Output
-    private void sendAddOutput(Long amount, String productName, String productBrand, Long users, Long idEmployeeSelect, Long idLocationSelect) {
-        Output output=new Output();
+    private void sendAddOutput(float amount, String productName, String productBrand, String users, String employee, String location, String _unit) {
+        OuputDto output=new OuputDto();
         output.setAmount(amount);
         output.setProductName(productName);
         output.setProductBrand(productBrand);
         output.setUsers(users);
-        output.setEmployee(idEmployeeSelect);
-        output.setLocation(idLocationSelect);
+        output.setEmployee(employee);
+        output.setLocation(location);
+        output.setUnit(_unit);
         Call<Void> outputProduct= ApiClient.getOutputService().createOutput(output);
-        Log.i("output",outputProduct.toString());
         outputProduct.enqueue(new Callback<Void>(){
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                Toast.makeText(getApplicationContext(), "Se entrego el producto con exito", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext(), OutputActivity.class));
+                if (response.isSuccessful()){
+                    MotionToast motionToast =  new MotionToast(OutputActivity.this,0,
+                            MotionStyle.LIGHT,
+                            MotionStyle.SUCCESS,
+                            MotionStyle.BOTTOM,
+                            "EXITO",
+                            "Registro de salida guardado",
+                            MotionStyle.LENGTH_SHORT).show();
+                    startActivity(new Intent(getApplicationContext(), OutputActivity.class));
+                }else {
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+
+                        MotionToast motionToastR = new MotionToast(OutputActivity.this, 0,
+                                MotionStyle.LIGHT,
+                                MotionStyle.ERROR,
+                                MotionStyle.BOTTOM,
+                                "ERROR",
+                                jObjError.getString("details"),
+                                MotionStyle.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        MotionToast motionToastR = new MotionToast(OutputActivity.this, 0,
+                                MotionStyle.LIGHT,
+                                MotionStyle.ERROR,
+                                MotionStyle.BOTTOM,
+                                "ERROR",
+                                "Ocurrio un error inesperado",
+                                MotionStyle.LENGTH_SHORT).show();
+                    }
+
+                }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 t.printStackTrace();
-                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                MotionToast motionToastR = new MotionToast(OutputActivity.this, 0,
+                        MotionStyle.LIGHT,
+                        MotionStyle.ERROR,
+                        MotionStyle.BOTTOM,
+                        "ERROR",
+                        t.getMessage(),
+                        MotionStyle.LENGTH_SHORT).show();
             }
         });
 

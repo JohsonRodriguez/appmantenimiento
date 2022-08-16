@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AppMantenimientoLB</string>
+    <string name="app_name">MantenimientoLB</string>
     <string name="registros_de_ingresos">Registros de Ingresos</string>
     <string name="registros_de_salidas">Registros de Salidas</string>
     <string name="title_activity_principal">PrincipalActivity</string>

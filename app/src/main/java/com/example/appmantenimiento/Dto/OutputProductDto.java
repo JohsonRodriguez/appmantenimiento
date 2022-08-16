@@ -2,14 +2,18 @@ package com.example.appmantenimiento.Dto;
 
 public class OutputProductDto {
 
-    private Long product;
+    private String product;
     private String date;
 
-    public Long getProduct() {
+    public OutputProductDto() {
+
+    }
+
+    public String getProduct() {
         return product;
     }
 
-    public void setProduct(Long product) {
+    public void setProduct(String product) {
         this.product = product;
     }
 
@@ -21,10 +25,15 @@ public class OutputProductDto {
         this.date = date;
     }
 
+    public OutputProductDto(String product, String date) {
+        this.product = product;
+        this.date = date;
+    }
+
     @Override
     public String toString() {
         return "OutputProductDto{" +
-                "product=" + product +
+                "product='" + product + '\'' +
                 ", date='" + date + '\'' +
                 '}';
     }

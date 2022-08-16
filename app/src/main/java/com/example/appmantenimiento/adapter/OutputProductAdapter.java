@@ -43,9 +43,10 @@ public class OutputProductAdapter extends RecyclerView.Adapter<OutputProductAdap
         OutputProductTotalDto outputProductTotalDto=outputProductList.get(position);
         String name= outputProductTotalDto.getName();
         Double total=outputProductTotalDto.getTotal();
+        String unit= outputProductTotalDto.getUnit();
         Log.e("lista", outputProductList.toString());
         holder._productLocation.setText(name);
-        holder._stockLocation.setText(total.toString());
+        holder._stockLocation.setText(total.toString()+" "+unit);
 
     }
 

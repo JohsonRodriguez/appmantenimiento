@@ -11,33 +11,37 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appmantenimiento.Dto.AllInputDto;
 import com.example.appmantenimiento.Dto.AllOutputs;
+import com.example.appmantenimiento.Entity.Output;
 import com.example.appmantenimiento.R;
 
 import java.util.List;
 
 public class AllOutputAdapter extends RecyclerView.Adapter<AllOutputAdapter.ViewHolder> {
-    private List<AllOutputs> allOutputsList;
+    private List<Output> allOutputsList;
     private Context context;
     private AllOutputAdapter.ClickedItem clickedItem;
     public AllOutputAdapter(AllOutputAdapter.ClickedItem clickedItem) {
         this.clickedItem=clickedItem;
     }
 
-    public void setData(List<AllOutputs> allOutputsList){
+    public void setData(List<Output> allOutputsList){
         this.allOutputsList = allOutputsList;
         notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView _productName, _locationName, _productAmount, _userName, _employeeName;
+        TextView _productName, _locationName, _productAmount, _userName, _employeeName,_unit,_productBrand;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             _productName=itemView.findViewById(R.id._tproduct);
+            _productBrand=itemView.findViewById(R.id._tbrandout);
             _locationName=itemView.findViewById(R.id._tvLocation);
-            _productAmount=itemView.findViewById(R.id._tvAmount);
+            _productAmount=itemView.findViewById(R.id._tvstock);
             _userName=itemView.findViewById(R.id._tvuser);
             _employeeName=itemView.findViewById(R.id._tvEmployee);
-    }}
+            _unit=itemView.findViewById(R.id._tvunit);
+
+        }}
 
     @NonNull
     @Override
@@ -49,17 +53,21 @@ public class AllOutputAdapter extends RecyclerView.Adapter<AllOutputAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull AllOutputAdapter.ViewHolder holder, int position) {
-        AllOutputs allOutputs=allOutputsList.get(position);
-        String pName = allOutputs.getProductName();
-        String pLocation = allOutputs.getLocationName();
-        String users = allOutputs.getUserName();
-        String pAmount = allOutputs.getAmount().toString();
-        String eName= allOutputs.getEmployeeName() + allOutputs.getEmployeeLastname();
+        Output allOutputs=allOutputsList.get(position);
+        String pName = allOutputs.getProduct();
+        String pBrand = allOutputs.getBrand();
+        String pLocation = allOutputs.getLocation();
+        String users = allOutputs.getUsers();
+        String pAmount = String.valueOf(allOutputs.getAmount());
+        String eName= allOutputs.getEmployee();
+        String unit= allOutputs.getUnit();
         holder._productName.setText(pName);
+        holder._productBrand.setText(pBrand);
         holder._locationName.setText(pLocation);
         holder._userName.setText(users);
         holder._productAmount.setText(pAmount);
         holder._employeeName.setText(eName);
+        holder._unit.setText(unit);
     }
 
     @Override

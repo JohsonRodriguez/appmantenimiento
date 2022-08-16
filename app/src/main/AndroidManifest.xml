@@ -16,35 +16,57 @@
         android:theme="@style/Theme.AppMantenimiento"
         tools:targetApi="31">
         <activity
-            android:name=".NewProductActivity"
-            android:exported="false" />
+            android:name=".ProductByMonthActivity"
+            android:exported="false"
+            android:screenOrientation="locked"/>
         <activity
-            android:name=".AllOutputsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".InputRegistersActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ProductToEmployeeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ProductToLocationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".OutputActivity"
-            android:exported="false" />
-        <activity
-            android:name=".StockActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ReportLocationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".InputActivity"
-            android:exported="false" />
+            android:name=".MenuUserActivity"
+            android:exported="false"
+            android:screenOrientation="locked" />
         <activity
             android:name=".MenuActivity"
-            android:exported="true">
+            android:exported="false"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".NewProductActivity"
+            android:exported="false"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".AllOutputsActivity"
+            android:exported="false"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".InputRegistersActivity"
+            android:exported="false"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ProductToEmployeeActivity"
+            android:exported="false"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ProductToLocationActivity"
+            android:exported="false"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".OutputActivity"
+            android:exported="false"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".StockActivity"
+            android:exported="false"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ReportLocationActivity"
+            android:exported="false"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".InputActivity"
+            android:exported="false"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true"
+            android:screenOrientation="locked">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

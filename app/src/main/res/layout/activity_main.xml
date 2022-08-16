@@ -14,20 +14,31 @@
         android:orientation="vertical"
         android:layout_gravity="center"
         android:gravity="center">
+        <TextView
+            android:id="@+id/txtnameuser"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/rubikregular"
+            android:layout_marginBottom="10dp"
+            android:text="Menu"
+            android:layout_gravity="left"
+            android:layout_marginLeft="40dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/textView10"
-            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto"
-            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/rubikregular"
+            android:layout_marginBottom="25dp"
             android:text="Menu"
-            android:layout_gravity="left"
-            android:layout_marginLeft="10dp"
-            android:textColor="@color/blueapp"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="26sp"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,8 +54,8 @@
                     android:layout_width="150dp"
                     android:layout_height="120dp"
                     app:cardCornerRadius="17dp"
-
-                    android:background="@drawable/shape_menu">
+                    android:foreground="?attr/selectableItemBackground"
+                    android:clickable="true" >
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -53,15 +64,17 @@
                         android:gravity="center">
                         <ImageView
                             android:id="@+id/imageView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:srcCompat="@android:drawable/ic_menu_zoom" />
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:srcCompat="@drawable/ic_baseline_search" />
                         <TextView
                             android:id="@+id/textView1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
+                            android:fontFamily="@font/rubikregular"
+
                             android:text="Verificar"
+
                             android:textColor="#6B7180"
                             android:textSize="15sp"
                             android:textStyle="bold"/>
@@ -69,7 +82,7 @@
                             android:id="@+id/textView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
+                            android:fontFamily="@font/rubikregular"
                             android:text="Stock"
                             android:textColor="#6B7180"
                             android:textSize="15sp"
@@ -84,7 +97,9 @@
                     android:layout_width="150dp"
                     android:layout_height="120dp"
                     android:layout_marginLeft="40dp"
-                    android:background="@drawable/shape_menu"
+
+                    android:foreground="?attr/selectableItemBackground"
+                    android:clickable="true"
                     app:cardCornerRadius="17dp">
 
                     <LinearLayout
@@ -96,15 +111,15 @@
 
                         <ImageView
                             android:id="@+id/imageViewr"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:srcCompat="@android:drawable/ic_menu_zoom" />
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:srcCompat="@drawable/ic_baseline_add_circle" />
 
                         <TextView
                             android:id="@+id/textView1d"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
+                            android:fontFamily="@font/rubikregular"
                             android:text="Registrar"
                             android:textColor="#6B7180"
                             android:textSize="15sp"
@@ -114,7 +129,7 @@
                             android:id="@+id/textViews"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
+                            android:fontFamily="@font/rubikregular"
                             android:text="Nuevo Producto"
                             android:textColor="#6B7180"
                             android:textSize="15sp"
@@ -136,7 +151,9 @@
                     android:layout_width="150dp"
                     android:layout_height="120dp"
                     app:cardCornerRadius="17dp"
-                    android:background="@drawable/shape_menu">
+                    android:foreground="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    >
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -145,15 +162,15 @@
                         android:gravity="center">
                         <ImageView
                             android:id="@+id/imageVsiew"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:srcCompat="@android:drawable/ic_menu_zoom" />
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:srcCompat="@drawable/ic_baseline__inbox" />
 
                         <TextView
                             android:id="@+id/texstView1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
+                            android:fontFamily="@font/rubikregular"
                             android:text="Registrar"
                             android:textColor="#6B7180"
                             android:textSize="15sp"
@@ -162,8 +179,8 @@
                             android:id="@+id/texstView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
-                            android:text="Ingreso de Producto"
+                            android:fontFamily="@font/rubikregular"
+                            android:text="Ingreso"
                             android:textColor="#6B7180"
                             android:textSize="15sp"
                             android:textStyle="bold"/>
@@ -176,7 +193,9 @@
                     android:layout_width="150dp"
                     android:layout_height="120dp"
                     app:cardCornerRadius="17dp"
-                    android:background="@drawable/shape_menu"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:clickable="true"
+
                     android:layout_marginLeft="40dp">
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -186,14 +205,14 @@
                         android:gravity="center">
                         <ImageView
                             android:id="@+id/imageVdiewr"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:srcCompat="@android:drawable/ic_menu_zoom" />
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:srcCompat="@drawable/ic_baseline_import_export" />
                         <TextView
                             android:id="@+id/textdView1d"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
+                            android:fontFamily="@font/rubikregular"
                             android:text="Registrar"
                             android:textColor="#6B7180"
                             android:textSize="15sp"
@@ -202,8 +221,8 @@
                             android:id="@+id/texdtViews"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
-                            android:text="Salida de Producto"
+                            android:fontFamily="@font/rubikregular"
+                            android:text="Salida"
                             android:textColor="#6B7180"
                             android:textSize="15sp"
                             android:textStyle="bold"/>
@@ -224,7 +243,7 @@
                     android:layout_width="150dp"
                     android:layout_height="120dp"
                     app:cardCornerRadius="17dp"
-                    android:background="@drawable/shape_menu">
+                    >
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -233,15 +252,15 @@
                         android:gravity="center">
                         <ImageView
                             android:id="@+id/im5ageView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:srcCompat="@android:drawable/ic_menu_zoom" />
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:srcCompat="@drawable/ic_baseline_apartment" />
                         <TextView
                             android:id="@+id/textV5iew1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
-                            android:text="Registros"
+                            android:fontFamily="@font/rubikregular"
+                            android:text="Productos"
                             android:textColor="#6B7180"
                             android:textSize="15sp"
                             android:textStyle="bold"/>
@@ -249,8 +268,8 @@
                             android:id="@+id/text6Vi5ew"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
-                            android:text="por Productos"
+                            android:fontFamily="@font/rubikregular"
+                            android:text="por Ubicación"
                             android:textColor="#6B7180"
                             android:textSize="15sp"
                             android:textStyle="bold"/>
@@ -263,7 +282,7 @@
                     android:layout_width="150dp"
                     android:layout_height="120dp"
                     app:cardCornerRadius="17dp"
-                    android:background="@drawable/shape_menu"
+
                     android:layout_marginLeft="40dp">
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -273,15 +292,15 @@
                         android:gravity="center">
                         <ImageView
                             android:id="@+id/i6mageViewr"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:srcCompat="@android:drawable/ic_menu_zoom" />
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:srcCompat="@drawable/ic_baseline_supervisor" />
                         <TextView
                             android:id="@+id/t6extView1d"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
-                            android:text="Registros"
+                            android:fontFamily="@font/rubikregular"
+                            android:text="Productos"
                             android:textColor="#6B7180"
                             android:textSize="15sp"
                             android:textStyle="bold"/>
@@ -289,8 +308,8 @@
                             android:id="@+id/textVi6ews"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
-                            android:text="por empleado"
+                            android:fontFamily="@font/rubikregular"
+                            android:text="por Empleado"
                             android:textColor="#6B7180"
                             android:textSize="15sp"
                             android:textStyle="bold"/>
@@ -303,53 +322,61 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/btn_Inputs"
                     android:layout_width="150dp"
                     android:layout_height="120dp"
-                    app:cardCornerRadius="17dp"
-                    android:background="@drawable/shape_general">
+                    android:clickable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:cardCornerRadius="17dp">
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:layout_gravity="center"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:orientation="vertical">
+
                         <ImageView
-                            android:id="@+id/imageVi5ew"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:srcCompat="@android:drawable/ic_menu_zoom" />
+                            android:id="@+id/imageVi"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:srcCompat="@drawable/ic_baseline_assessment" />
+
                         <TextView
                             android:id="@+id/textVi5ew1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
+                            android:fontFamily="@font/rubikregular"
                             android:text="Registros"
                             android:textColor="#6B7180"
                             android:textSize="15sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/textVi5ew"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
+                            android:fontFamily="@font/rubikregular"
                             android:text="de ingresos"
                             android:textColor="#6B7180"
                             android:textSize="15sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/btn_Outputs"
                     android:layout_width="150dp"
                     android:layout_height="120dp"
                     app:cardCornerRadius="17dp"
-                    android:background="@drawable/shape_menu"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:clickable="true"
                     android:layout_marginLeft="40dp">
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -359,14 +386,14 @@
                         android:gravity="center">
                         <ImageView
                             android:id="@+id/image6Viewr"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:srcCompat="@android:drawable/ic_menu_zoom" />
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:srcCompat="@drawable/ic_baseline_assignment" />
                         <TextView
                             android:id="@+id/textView1d56"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
+                            android:fontFamily="@font/rubikregular"
                             android:text="Registros"
                             android:textColor="#6B7180"
                             android:textSize="15sp"
@@ -375,29 +402,102 @@
                             android:id="@+id/textView56s"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
+                            android:fontFamily="@font/rubikregular"
                             android:text="de Salidas"
                             android:textColor="#6B7180"
                             android:textSize="15sp"
                             android:textStyle="bold"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_logout"
+                    android:layout_width="150dp"
+                    android:layout_height="120dp"
+                    android:clickable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:cardCornerRadius="17dp">
 
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageVi5ew"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:srcCompat="@drawable/ic_baseline_input" />
+
+                        <TextView
+                            android:id="@+id/textVi5e1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/rubikregular"
+                            android:text="Cerrar"
+                            android:textColor="#6B7180"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textV5ew"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/rubikregular"
+                            android:text="Sesión"
+                            android:textColor="#6B7180"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_Month"
+                    android:layout_width="150dp"
+                    android:layout_height="120dp"
+                    app:cardCornerRadius="17dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:layout_marginLeft="40dp">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center"
+                        android:gravity="center">
+                        <ImageView
+                            android:id="@+id/imag6Viewr"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:srcCompat="@drawable/ic_baseline_bar_chart" />
+                        <TextView
+                            android:id="@+id/textiew1d56"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/rubikregular"
+                            android:text="Productos"
+                            android:textColor="#6B7180"
+                            android:textSize="15sp"
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:id="@+id/textVew56s"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/rubikregular"
+                            android:text="por mes"
+                            android:textColor="#6B7180"
+                            android:textSize="15sp"
+                            android:textStyle="bold"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
             </LinearLayout>
         </LinearLayout>
-        <TextView
-            android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="66dp"
-            android:background="@drawable/shape_curva"
-            android:gravity="center">
-
-        </TextView>
-
-
-
     </LinearLayout>
-
 </LinearLayout>

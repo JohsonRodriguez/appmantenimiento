@@ -50,5 +50,7 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
     //Charts
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+//Toast
+    implementation 'com.github.lazy-pr0grammer:MotionToast-Easiotic:1.0'
 
 }

@@ -17,5 +17,5 @@ public interface InputService {
     Call<Void> createInput(@Body InputDto inputDto);
 
     @POST("input/getall/{day}")
-    Call<List<AllInputDto>> getAllInputs(@Path("day") String day);
+    Call<List<Input>> getAllInputs(@Path("day") String day);
 }
